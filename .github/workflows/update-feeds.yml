@@ -1,0 +1,60 @@
+name: Update Threat Feeds & SIEM Rules
+
+on:
+  schedule:
+    # Run every 24 hours at midnight UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-threat-feeds:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run Test Suite
+        run: |
+          pytest -v
+
+      - name: Execute ThreatPulse Pipeline
+        env:
+          CROWDSEC_API_KEY: ${{ secrets.CROWDSEC_API_KEY }}
+        run: |
+          python -m threatpulse.cli update --min-score 3 --dist dist
+
+      - name: Update README Stats & Badges
+        run: |
+          TOTAL_IPS=$(grep -v '^#' dist/ips/all_malicious_ips.txt | grep -v '^$' | wc -l | tr -d ' ')
+          HIGH_CONF=$(grep -v '^#' dist/ips/high_confidence_ips.txt | grep -v '^$' | wc -l | tr -d ' ')
+          CIDR_DROPS=$(grep -v '^#' dist/ips/cidr_drop.txt | grep -v '^$' | wc -l | tr -d ' ')
+          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+
+          # Update stats table in README.md
+          sed -i -E "s/<!-- STATS_TOTAL_IPS -->.*<!-- END_STATS_TOTAL_IPS -->/<!-- STATS_TOTAL_IPS -->$TOTAL_IPS<!-- END_STATS_TOTAL_IPS -->/" README.md
+          sed -i -E "s/<!-- STATS_HIGH_CONF -->.*<!-- END_STATS_HIGH_CONF -->/<!-- STATS_HIGH_CONF -->$HIGH_CONF<!-- END_STATS_HIGH_CONF -->/" README.md
+          sed -i -E "s/<!-- STATS_CIDR_DROPS -->.*<!-- END_STATS_CIDR_DROPS -->/<!-- STATS_CIDR_DROPS -->$CIDR_DROPS<!-- END_STATS_CIDR_DROPS -->/" README.md
+          sed -i -E "s/<!-- STATS_UPDATED -->.*<!-- END_STATS_UPDATED -->/<!-- STATS_UPDATED -->$TIMESTAMP<!-- END_STATS_UPDATED -->/" README.md
+
+      - name: Commit and Push Updated Threat Feeds
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist/ README.md
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(feeds): auto-update threat intelligence feeds [skip ci]" && git push)
