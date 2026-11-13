@@ -1,633 +1,330 @@
 [
   {
-    "id": "d84c0ded-edd7-4123-80ed-348bb3ccc4d5",
-    "title": "Suspicious SQL Query",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects suspicious SQL query keywrods that are often used during recon, exfiltration or destructive activities. Such as dropping tables and selecting wildcard fields",
-    "category": "generic",
-    "logsource": {
-      "category": "database",
-      "definition": "Requirements: Must be able to log the SQL queries"
-    },
-    "tags": [
-      "attack.exfiltration",
-      "attack.initial-access",
-      "attack.privilege-escalation",
-      "attack.persistence",
-      "attack.t1190",
-      "attack.t1505.001"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "fdf135a2-9241-4f96-a114-bb404948f736",
-    "title": "Antivirus - Web Shell Detection Signature",
+    "id": "65f77b1e-8e79-45bf-bb67-5988a8ce45a5",
+    "title": "SharpHound Recon Account Discovery",
     "status": "test",
     "level": "high",
-    "description": "Detects a highly relevant Antivirus alert that reports a web shell.\nIt's highly recommended to tune this rule to the specific strings used by your anti virus solution by downloading a big WebShell repository from e.g. github and checking the matches.\nThis event must not be ignored just because the AV has blocked the malware but investigate, how it came there in the first place.\n",
+    "description": "Detects remote RPC calls useb by SharpHound to map remote connections and local group membership.",
     "category": "generic",
     "logsource": {
-      "category": "antivirus"
+      "product": "rpc_firewall",
+      "category": "application",
+      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:6bffd098-a112-3610-9833-46c3f87e345a opnum:2"
     },
     "tags": [
-      "attack.persistence",
-      "attack.t1505.003"
+      "attack.t1087",
+      "attack.discovery"
     ],
     "raw_yaml": null
   },
   {
-    "id": "4c6ca276-d4d0-4a8c-9e4c-d69832f8671f",
-    "title": "Antivirus - Ransomware Signature",
-    "status": "test",
-    "level": "critical",
-    "description": "Detects a highly relevant Antivirus alert that reports ransomware.\nThis event must not be ignored just because the AV has blocked the malware but investigate, how it came there in the first place.\n",
-    "category": "generic",
-    "logsource": {
-      "category": "antivirus"
-    },
-    "tags": [
-      "attack.t1486",
-      "attack.impact"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "78cc2dd2-7d20-4d32-93ff-057084c38b93",
-    "title": "Antivirus - Password Dumper Signature",
-    "status": "stable",
-    "level": "critical",
-    "description": "Detects a highly relevant Antivirus alert that reports password dumpers and stealers.\nThis event must not be ignored just because the AV has blocked the malware but investigate, how it came there in the first place and check if passwords need to be reset.\n",
-    "category": "generic",
-    "logsource": {
-      "category": "antivirus"
-    },
-    "tags": [
-      "attack.credential-access",
-      "attack.t1003",
-      "attack.t1558",
-      "attack.t1003.001",
-      "attack.t1003.002"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "238527ad-3c2c-4e4f-a1f6-92fd63adb864",
-    "title": "Antivirus - Exploitation Framework Signature",
-    "status": "stable",
-    "level": "critical",
-    "description": "Detects a highly relevant Antivirus alert that reports an exploitation framework.\nThis event must not be ignored just because the AV has blocked the malware but investigate, how it came there in the first place.\n",
-    "category": "generic",
-    "logsource": {
-      "category": "antivirus"
-    },
-    "tags": [
-      "attack.execution",
-      "attack.t1203",
-      "attack.command-and-control",
-      "attack.t1219.002"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "c9a88268-0047-4824-ba6e-4d81ce0b907c",
-    "title": "Antivirus - Relevant File Paths Alerts Signature",
+    "id": "2053961f-44c7-4a64-b62d-f6e72800af0d",
+    "title": "Remote Event Log Recon",
     "status": "test",
     "level": "high",
-    "description": "Detects an Antivirus alert in a highly relevant file path or with a relevant file name.\nThis event must not be ignored just because the AV has blocked the malware but investigate, how it came there in the first place.\n",
+    "description": "Detects remote RPC calls to get event log information via EVEN or EVEN6",
     "category": "generic",
     "logsource": {
-      "category": "antivirus"
+      "product": "rpc_firewall",
+      "category": "application",
+      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:82273fdc-e32a-18c3-3f78-827929dc23ea and uuid:f6beaff7-1e19-4fbb-9f8f-b89e2018337c\""
     },
     "tags": [
-      "attack.resource-development",
-      "attack.t1588"
+      "attack.discovery"
     ],
     "raw_yaml": null
   },
   {
-    "id": "97233998-3838-4581-88c6-f1d19d3993fb",
-    "title": "Antivirus - Remote Access Tools Signature",
-    "status": "experimental",
-    "level": "critical",
-    "description": "Detects a highly relevant Antivirus alert that reports a remote access tool.\nThis event must not be ignored just because the AV has blocked the malware but investigate, how it came there in the first place.\n",
-    "category": "generic",
-    "logsource": {
-      "category": "antivirus"
-    },
-    "tags": [
-      "attack.execution",
-      "attack.t1203",
-      "attack.command-and-control",
-      "attack.t1219.002"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "101a1877-2cf4-474d-abfd-7f6ac4788d1a",
-    "title": "Antivirus - APT Malware Signature",
-    "status": "experimental",
-    "level": "critical",
-    "description": "Detects a highly relevant Antivirus alert that reports APT malware.\nThis event must not be ignored just because the AV has blocked the malware but investigate, how it came there in the first place.\n",
-    "category": "generic",
-    "logsource": {
-      "category": "antivirus"
-    },
-    "tags": [
-      "attack.execution",
-      "attack.t1203",
-      "attack.command-and-control",
-      "attack.t1219.002"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "fa0c05b6-8ad3-468d-8231-c1cbccb64fba",
-    "title": "Antivirus - Hacktool Signature",
-    "status": "stable",
-    "level": "high",
-    "description": "Detects a highly relevant Antivirus alert that reports a hack tool or other attack tool.\nThis event must not be ignored just because the AV has blocked the malware but investigate, how it came there in the first place.\n",
-    "category": "generic",
-    "logsource": {
-      "category": "antivirus"
-    },
-    "tags": [
-      "attack.execution",
-      "attack.t1204"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "6f7e1c10-2dc9-4312-adb6-9574ff09a5c8",
-    "title": "Cisco Duo Successful MFA Authentication Via Bypass Code",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when a successful MFA authentication occurs due to the use of a bypass code.\nA bypass code is a temporary passcode created by an administrator for a specific user to access a Duo-protected application. These are generally used as \"backup codes,\" so that enrolled users who are having problems with their mobile devices (e.g., mobile service is disrupted, the device is lost or stolen, etc.) or who temporarily can't use their enrolled devices (on a plane without mobile data services) can still access their Duo-protected systems.\n",
-    "category": "generic",
-    "logsource": {
-      "product": "cisco",
-      "service": "duo"
-    },
-    "tags": [
-      "attack.credential-access",
-      "attack.initial-access",
-      "attack.stealth"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "8f668cc4-c18e-45fe-ad00-624a981cf88a",
-    "title": "Okta Application Sign-On Policy Modified or Deleted",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when an application Sign-on Policy is modified or deleted.",
-    "category": "generic",
-    "logsource": {
-      "product": "okta",
-      "service": "okta"
-    },
-    "tags": [
-      "attack.impact"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "9f308120-69ed-4506-abde-ac6da81f4310",
-    "title": "Okta Network Zone Deactivated or Deleted",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when an Network Zone is Deactivated or Deleted.",
-    "category": "generic",
-    "logsource": {
-      "product": "okta",
-      "service": "okta"
-    },
-    "tags": [
-      "attack.impact"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "07e97cc6-aed1-43ae-9081-b3470d2367f1",
-    "title": "Okta Suspicious Activity Reported by End-user",
+    "id": "bc3a4b0c-e167-48e1-aa88-b3020950e560",
+    "title": "Remote Printing Abuse for Lateral Movement",
     "status": "test",
     "level": "high",
-    "description": "Detects when an Okta end-user reports activity by their account as being potentially suspicious.",
+    "description": "Detects remote RPC calls to possibly abuse remote printing service via MS-RPRN / MS-PAR",
     "category": "generic",
     "logsource": {
-      "product": "okta",
-      "service": "okta"
+      "product": "rpc_firewall",
+      "category": "application",
+      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:12345678-1234-abcd-ef00-0123456789ab or 76f03f96-cdfd-44fc-a22c-64950a001209 or ae33069b-a2a8-46ee-a235-ddfd339be281 or 0b6edbfa-4a24-4fc6-8a23-942b1eca65d1"
     },
     "tags": [
-      "attack.resource-development",
-      "attack.t1586.003"
+      "attack.lateral-movement"
     ],
     "raw_yaml": null
   },
   {
-    "id": "139bdd4b-9cd7-49ba-a2f4-744d0a8f5d8c",
-    "title": "Okta Admin Role Assignment Created",
+    "id": "5f92fff9-82e2-48eb-8fc1-8b133556a551",
+    "title": "Remote Encrypting File System Abuse",
     "status": "test",
-    "level": "medium",
-    "description": "Detects when a new admin role assignment is created. Which could be a sign of privilege escalation or persistence",
+    "level": "high",
+    "description": "Detects remote RPC calls to possibly abuse remote encryption service via MS-EFSR",
     "category": "generic",
     "logsource": {
-      "product": "okta",
-      "service": "okta"
+      "product": "rpc_firewall",
+      "category": "application",
+      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:df1941c5-fe89-4e79-bf10-463657acf44d or c681d488-d850-11d0-8c52-00c04fd90f7e"
     },
     "tags": [
+      "attack.lateral-movement"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "7f7c49eb-2977-4ac8-8ab0-ab1bae14730e",
+    "title": "Remote Schedule Task Recon via ITaskSchedulerService",
+    "status": "test",
+    "level": "high",
+    "description": "Detects remote RPC calls to read information about scheduled tasks",
+    "category": "generic",
+    "logsource": {
+      "product": "rpc_firewall",
+      "category": "application",
+      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:86d35949-83c9-4044-b424-db363231fd0c\""
+    },
+    "tags": [
+      "attack.discovery"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "f177f2bc-5f3e-4453-b599-57eefce9a59c",
+    "title": "Remote Schedule Task Recon via AtScv",
+    "status": "test",
+    "level": "high",
+    "description": "Detects remote RPC calls to read information about scheduled tasks via AtScv",
+    "category": "generic",
+    "logsource": {
+      "product": "rpc_firewall",
+      "category": "application",
+      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:1ff70682-0a51-30e8-076d-740be8cee98b\""
+    },
+    "tags": [
+      "attack.discovery"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "d8ffe17e-04be-4886-beb9-c1dd1944b9a8",
+    "title": "Remote Registry Recon",
+    "status": "test",
+    "level": "high",
+    "description": "Detects remote RPC calls to collect information",
+    "category": "generic",
+    "logsource": {
+      "product": "rpc_firewall",
+      "category": "application",
+      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:338cd001-2244-31f1-aaaa-900038001003\""
+    },
+    "tags": [
+      "attack.discovery"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "10018e73-06ec-46ec-8107-9172f1e04ff2",
+    "title": "Remote Server Service Abuse for Lateral Movement",
+    "status": "test",
+    "level": "high",
+    "description": "Detects remote RPC calls to possibly abuse remote encryption service via MS-EFSR",
+    "category": "generic",
+    "logsource": {
+      "product": "rpc_firewall",
+      "category": "application",
+      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:367abb81-9844-35f1-ad32-98f038001003"
+    },
+    "tags": [
+      "attack.lateral-movement",
+      "attack.execution",
+      "attack.t1569.002"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "35c55673-84ca-4e99-8d09-e334f3c29539",
+    "title": "Remote Registry Lateral Movement",
+    "status": "test",
+    "level": "high",
+    "description": "Detects remote RPC calls to modify the registry and possible execute code",
+    "category": "generic",
+    "logsource": {
+      "product": "rpc_firewall",
+      "category": "application",
+      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:338cd001-2244-31f1-aaaa-900038001003\""
+    },
+    "tags": [
+      "attack.lateral-movement",
+      "attack.defense-impairment",
+      "attack.t1112",
       "attack.persistence"
     ],
     "raw_yaml": null
   },
   {
-    "id": "bde30855-5c53-4c18-ae90-1ff79ebc9578",
-    "title": "Okta User Session Start Via An Anonymising Proxy Service",
+    "id": "0fcd1c79-4eeb-4746-aba9-1b458f7a79cb",
+    "title": "Remote Schedule Task Lateral Movement via ATSvc",
     "status": "test",
     "level": "high",
-    "description": "Detects when an Okta user session starts where the user is behind an anonymising proxy service.",
+    "description": "Detects remote RPC calls to create or execute a scheduled task via ATSvc",
     "category": "generic",
     "logsource": {
-      "product": "okta",
-      "service": "okta"
-    },
-    "tags": [
-      "attack.defense-impairment",
-      "attack.t1685"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "ee39a9f7-5a79-4b0a-9815-d36b3cf28d3e",
-    "title": "Okta FastPass Phishing Detection",
-    "status": "test",
-    "level": "high",
-    "description": "Detects when Okta FastPass prevents a known phishing site.",
-    "category": "generic",
-    "logsource": {
-      "product": "okta",
-      "service": "okta"
-    },
-    "tags": [
-      "attack.initial-access",
-      "attack.t1566"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "cf1dbc6b-6205-41b4-9b88-a83980d2255b",
-    "title": "Okta API Token Revoked",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when a API Token is revoked.",
-    "category": "generic",
-    "logsource": {
-      "product": "okta",
-      "service": "okta"
-    },
-    "tags": [
-      "attack.impact"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "b6c718dd-8f53-4b9f-98d8-93fdca966969",
-    "title": "New Okta User Created",
-    "status": "test",
-    "level": "informational",
-    "description": "Detects new user account creation",
-    "category": "generic",
-    "logsource": {
-      "service": "okta",
-      "product": "okta"
-    },
-    "tags": [
-      "attack.credential-access"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "0c97c1d3-4057-45c9-b148-1de94b631931",
-    "title": "Okta Policy Rule Modified or Deleted",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when an Policy Rule is Modified or Deleted.",
-    "category": "generic",
-    "logsource": {
-      "product": "okta",
-      "service": "okta"
-    },
-    "tags": [
-      "attack.impact"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "413d4a81-6c98-4479-9863-014785fd579c",
-    "title": "Okta Admin Role Assigned to an User or Group",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when an the Administrator role is assigned to an user or group.",
-    "category": "generic",
-    "logsource": {
-      "product": "okta",
-      "service": "okta"
-    },
-    "tags": [
-      "attack.privilege-escalation",
-      "attack.persistence",
-      "attack.t1098.003"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "5c82f0b9-3c6d-477f-a318-0e14a1df73e0",
-    "title": "Okta Security Threat Detected",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when an security threat is detected in Okta.",
-    "category": "generic",
-    "logsource": {
-      "product": "okta",
-      "service": "okta"
-    },
-    "tags": [
-      "attack.command-and-control"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "50e068d7-1e6b-4054-87e5-0a592c40c7e0",
-    "title": "Okta MFA Reset or Deactivated",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when an attempt at deactivating  or resetting MFA.",
-    "category": "generic",
-    "logsource": {
-      "product": "okta",
-      "service": "okta"
-    },
-    "tags": [
-      "attack.persistence",
-      "attack.credential-access",
-      "attack.defense-impairment",
-      "attack.t1556.006"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "9058ca8b-f397-4fd1-a9fa-2b7aad4d6309",
-    "title": "Okta Admin Functions Access Through Proxy",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects access to Okta admin functions through proxy.",
-    "category": "generic",
-    "logsource": {
-      "service": "okta",
-      "product": "okta"
-    },
-    "tags": [
-      "attack.credential-access"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "a0b38b70-3cb5-484b-a4eb-c4d8e7bcc0a9",
-    "title": "Okta New Admin Console Behaviours",
-    "status": "test",
-    "level": "high",
-    "description": "Detects when Okta identifies new activity in the Admin Console.",
-    "category": "generic",
-    "logsource": {
-      "product": "okta",
-      "service": "okta"
-    },
-    "tags": [
-      "attack.privilege-escalation",
-      "attack.persistence",
-      "attack.initial-access",
-      "attack.stealth",
-      "attack.t1078.004"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "6cc2b61b-d97e-42ef-a9dd-8aa8dc951657",
-    "title": "Okta Unauthorized Access to App",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when unauthorized access to app occurs.",
-    "category": "generic",
-    "logsource": {
-      "product": "okta",
-      "service": "okta"
-    },
-    "tags": [
-      "attack.impact"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "1667a172-ed4c-463c-9969-efd92195319a",
-    "title": "Okta Policy Modified or Deleted",
-    "status": "test",
-    "level": "low",
-    "description": "Detects when an Okta policy is modified or deleted.",
-    "category": "generic",
-    "logsource": {
-      "product": "okta",
-      "service": "okta"
-    },
-    "tags": [
-      "attack.impact"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "19951c21-229d-4ccb-8774-b993c3ff3c5c",
-    "title": "Okta API Token Created",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when a API token is created",
-    "category": "generic",
-    "logsource": {
-      "product": "okta",
-      "service": "okta"
-    },
-    "tags": [
-      "attack.persistence"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "91b76b84-8589-47aa-9605-c837583b82a9",
-    "title": "Potential Okta Password in AlternateID Field",
-    "status": "test",
-    "level": "high",
-    "description": "Detects when a user has potentially entered their password into the\nusername field, which will cause the password to be retained in log files.\n",
-    "category": "generic",
-    "logsource": {
-      "product": "okta",
-      "service": "okta"
-    },
-    "tags": [
-      "attack.credential-access",
-      "attack.t1552"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "7899144b-e416-4c28-b0b5-ab8f9e0a541d",
-    "title": "Okta Application Modified or Deleted",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when an application is modified or deleted.",
-    "category": "generic",
-    "logsource": {
-      "product": "okta",
-      "service": "okta"
-    },
-    "tags": [
-      "attack.impact"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "14701da0-4b0f-4ee6-9c95-2ffb4e73bb9a",
-    "title": "Okta User Account Locked Out",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when an user account is locked out.",
-    "category": "generic",
-    "logsource": {
-      "product": "okta",
-      "service": "okta"
-    },
-    "tags": [
-      "attack.impact",
-      "attack.t1531"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "969c7590-8c19-4797-8c1b-23155de6e7ac",
-    "title": "Okta Identity Provider Created",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when a new identity provider is created for Okta.",
-    "category": "generic",
-    "logsource": {
-      "product": "okta",
-      "service": "okta"
-    },
-    "tags": [
-      "attack.privilege-escalation",
-      "attack.persistence",
-      "attack.t1098.001"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "62fff148-278d-497e-8ecd-ad6083231a35",
-    "title": "OneLogin User Assumed Another User",
-    "status": "test",
-    "level": "low",
-    "description": "Detects when an user assumed another user account.",
-    "category": "generic",
-    "logsource": {
-      "product": "onelogin",
-      "service": "onelogin.events"
-    },
-    "tags": [
-      "attack.impact"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "a717c561-d117-437e-b2d9-0118a7035d01",
-    "title": "OneLogin User Account Locked",
-    "status": "test",
-    "level": "low",
-    "description": "Detects when an user account is locked or suspended.",
-    "category": "generic",
-    "logsource": {
-      "product": "onelogin",
-      "service": "onelogin.events"
-    },
-    "tags": [
-      "attack.impact"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "eae8c0c8-e5da-450a-9d7d-66aa56cd26b6",
-    "title": "OpenCanary - NMAP FIN Scan",
-    "status": "experimental",
-    "level": "high",
-    "description": "Detects instances where an OpenCanary node has been targeted by a NMAP FIN Scan",
-    "category": "generic",
-    "logsource": {
+      "product": "rpc_firewall",
       "category": "application",
-      "product": "opencanary"
+      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:1ff70682-0a51-30e8-076d-740be8cee98b\""
+    },
+    "tags": [
+      "attack.privilege-escalation",
+      "attack.lateral-movement",
+      "attack.execution",
+      "attack.persistence",
+      "attack.t1053",
+      "attack.t1053.002"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "ace3ff54-e7fd-46bd-8ea0-74b49a0aca1d",
+    "title": "Remote Schedule Task Lateral Movement via ITaskSchedulerService",
+    "status": "test",
+    "level": "high",
+    "description": "Detects remote RPC calls to create or execute a scheduled task",
+    "category": "generic",
+    "logsource": {
+      "product": "rpc_firewall",
+      "category": "application",
+      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:86d35949-83c9-4044-b424-db363231fd0c\""
+    },
+    "tags": [
+      "attack.privilege-escalation",
+      "attack.persistence",
+      "attack.execution",
+      "attack.lateral-movement",
+      "attack.t1053",
+      "attack.t1053.002"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "56fda488-113e-4ce9-8076-afc2457922c3",
+    "title": "Possible DCSync Attack",
+    "status": "test",
+    "level": "high",
+    "description": "Detects remote RPC calls to MS-DRSR from non DC hosts, which could indicate DCSync / DCShadow attacks.",
+    "category": "generic",
+    "logsource": {
+      "product": "rpc_firewall",
+      "category": "application",
+      "definition": "Requirements: install and apply the RPC Firewall to all processes, enable DRSR UUID (e3514235-4b06-11d1-ab04-00c04fc2dcd2) for \"dangerous\" opcodes (not 0,1 or 12) only from trusted IPs (DCs)"
+    },
+    "tags": [
+      "attack.t1033",
+      "attack.discovery"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "b6ea3cc7-542f-43ef-bbe4-980fbed444c7",
+    "title": "Remote Server Service Abuse",
+    "status": "test",
+    "level": "high",
+    "description": "Detects remote RPC calls to possibly abuse remote encryption service via MS-SRVS",
+    "category": "generic",
+    "logsource": {
+      "product": "rpc_firewall",
+      "category": "application",
+      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:4b324fc8-1670-01d3-1278-5a47bf6ee188"
+    },
+    "tags": [
+      "attack.lateral-movement"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "6d580420-ff3f-4e0e-b6b0-41b90c787e28",
+    "title": "SharpHound Recon Sessions",
+    "status": "test",
+    "level": "high",
+    "description": "Detects remote RPC calls useb by SharpHound to map remote connections and local group membership.",
+    "category": "generic",
+    "logsource": {
+      "product": "rpc_firewall",
+      "category": "application",
+      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:4b324fc8-1670-01d3-1278-5a47bf6ee188 opnum:12"
     },
     "tags": [
       "attack.discovery",
-      "attack.t1046"
+      "attack.t1033"
     ],
     "raw_yaml": null
   },
   {
-    "id": "22777c9e-873a-4b49-855f-6072ab861a52",
-    "title": "OpenCanary - SMB File Open Request",
+    "id": "0a3ff354-93fc-4273-8a03-1078782de5b7",
+    "title": "Recon Activity via SASec",
     "status": "test",
     "level": "high",
-    "description": "Detects instances where an SMB service on an OpenCanary node has had a file open request.",
+    "description": "Detects remote RPC calls to read information about scheduled tasks via SASec",
     "category": "generic",
     "logsource": {
+      "product": "rpc_firewall",
       "category": "application",
-      "product": "opencanary"
+      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:378e52b0-c0a9-11cf-822d-00aa0051e40f\""
     },
     "tags": [
-      "attack.lateral-movement",
-      "attack.collection",
-      "attack.t1021",
-      "attack.t1005"
+      "attack.discovery"
     ],
     "raw_yaml": null
   },
   {
-    "id": "ff7139bc-fdb1-4437-92f2-6afefe8884cb",
-    "title": "OpenCanary - SSH Login Attempt",
+    "id": "aff229ab-f8cd-447b-b215-084d11e79eb0",
+    "title": "Remote Schedule Task Lateral Movement via SASec",
     "status": "test",
     "level": "high",
-    "description": "Detects instances where an SSH service on an OpenCanary node has had a login attempt.",
+    "description": "Detects remote RPC calls to create or execute a scheduled task via SASec",
     "category": "generic",
     "logsource": {
+      "product": "rpc_firewall",
       "category": "application",
-      "product": "opencanary"
+      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:378e52b0-c0a9-11cf-822d-00aa0051e40f\""
     },
     "tags": [
       "attack.privilege-escalation",
-      "attack.initial-access",
       "attack.lateral-movement",
+      "attack.execution",
       "attack.persistence",
-      "attack.stealth",
-      "attack.t1133",
-      "attack.t1021",
-      "attack.t1078"
+      "attack.t1053",
+      "attack.t1053.002"
     ],
     "raw_yaml": null
   },
   {
-    "id": "af6c3078-84cd-4c68-8842-08b76bd81b13",
-    "title": "OpenCanary - HTTP GET Request",
+    "id": "68050b10-e477-4377-a99b-3721b422d6ef",
+    "title": "Remote DCOM/WMI Lateral Movement",
     "status": "test",
     "level": "high",
-    "description": "Detects instances where an HTTP service on an OpenCanary node has received a GET request.",
+    "description": "Detects remote RPC calls that performs remote DCOM operations. These could be abused for lateral movement via DCOM or WMI.",
+    "category": "generic",
+    "logsource": {
+      "product": "rpc_firewall",
+      "category": "application",
+      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:367abb81-9844-35f1-ad32-98f038001003"
+    },
+    "tags": [
+      "attack.lateral-movement",
+      "attack.execution",
+      "attack.t1021.003",
+      "attack.t1047"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "97661d9d-2beb-4630-b423-68985291a8af",
+    "title": "Potential RCE Exploitation Attempt In NodeJS",
+    "status": "test",
+    "level": "high",
+    "description": "Detects process execution related errors in NodeJS. If the exceptions are caused due to user input then they may suggest an RCE vulnerability.",
     "category": "generic",
     "logsource": {
       "category": "application",
-      "product": "opencanary"
+      "product": "nodejs",
+      "definition": "Requirements: application error logs must be collected (with LOG_LEVEL=ERROR and above)"
     },
     "tags": [
       "attack.initial-access",
@@ -636,170 +333,15 @@
     "raw_yaml": null
   },
   {
-    "id": "cd55f721-5623-4663-bd9b-5229cab5237d",
-    "title": "OpenCanary - SSH New Connection Attempt",
-    "status": "test",
-    "level": "high",
-    "description": "Detects instances where an SSH service on an OpenCanary node has had a connection attempt.",
+    "id": "19aefed0-ffd4-47dc-a7fc-f8b1425e84f9",
+    "title": "Python SQL Exceptions",
+    "status": "stable",
+    "level": "medium",
+    "description": "Generic rule for SQL exceptions in Python according to PEP 249",
     "category": "generic",
     "logsource": {
       "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.privilege-escalation",
-      "attack.initial-access",
-      "attack.lateral-movement",
-      "attack.persistence",
-      "attack.stealth",
-      "attack.t1133",
-      "attack.t1021",
-      "attack.t1078"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "b4e6b016-a2ac-4759-ad85-8000b300d61e",
-    "title": "OpenCanary - TFTP Request",
-    "status": "test",
-    "level": "high",
-    "description": "Detects instances where a TFTP service on an OpenCanary node has had a request.",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.exfiltration",
-      "attack.t1041"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "e7d79a1b-25ed-4956-bd56-bd344fa8fd06",
-    "title": "OpenCanary - MySQL Login Attempt",
-    "status": "test",
-    "level": "high",
-    "description": "Detects instances where a MySQL service on an OpenCanary node has had a login attempt.",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.credential-access",
-      "attack.collection",
-      "attack.t1003",
-      "attack.t1213"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "e9856028-fd4e-46e6-b3d1-10f7ceb95078",
-    "title": "OpenCanary - SNMP OID Request",
-    "status": "test",
-    "level": "high",
-    "description": "Detects instances where an SNMP service on an OpenCanary node has had an OID request.",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.discovery",
-      "attack.lateral-movement",
-      "attack.t1016",
-      "attack.t1021"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "6991bc2b-ae2e-447f-bc55-3a1ba04c14e5",
-    "title": "OpenCanary - FTP Login Attempt",
-    "status": "test",
-    "level": "high",
-    "description": "Detects instances where an FTP service on an OpenCanary node has had a login attempt.",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.initial-access",
-      "attack.exfiltration",
-      "attack.lateral-movement",
-      "attack.t1190",
-      "attack.t1021"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "598290cf-5932-45cd-9123-be1e05ab4f2e",
-    "title": "OpenCanary - RDP New Connection Attempt",
-    "status": "experimental",
-    "level": "high",
-    "description": "Detects instances where an RDP service on an OpenCanary node has had a connection attempt.",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.initial-access",
-      "attack.lateral-movement",
-      "attack.persistence",
-      "attack.t1133",
-      "attack.t1021.001"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "5498fc09-adc6-4804-b9d9-5cca1f0b8760",
-    "title": "OpenCanary - HTTPPROXY Login Attempt",
-    "status": "test",
-    "level": "high",
-    "description": "Detects instances where an HTTPPROXY service on an OpenCanary node has had an attempt to proxy another page.\n",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.initial-access",
-      "attack.command-and-control",
-      "attack.t1090"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "6e78f90f-0043-4a01-ac41-f97681613a66",
-    "title": "OpenCanary - MSSQL Login Attempt Via Windows Authentication",
-    "status": "test",
-    "level": "high",
-    "description": "Detects instances where an MSSQL service on an OpenCanary node has had a login attempt using Windows Authentication.\n",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.credential-access",
-      "attack.collection",
-      "attack.t1003",
-      "attack.t1213"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "af1ac430-df6b-4b38-b976-0b52f07a0252",
-    "title": "OpenCanary - HTTP POST Login Attempt",
-    "status": "test",
-    "level": "high",
-    "description": "Detects instances where an HTTP service on an OpenCanary node has had login attempt via Form POST.\n",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
+      "product": "python"
     },
     "tags": [
       "attack.initial-access",
@@ -808,229 +350,15 @@
     "raw_yaml": null
   },
   {
-    "id": "e30de276-68ec-435c-ab99-ef3befec6c61",
-    "title": "OpenCanary - SIP Request",
+    "id": "c4e06896-e27c-4583-95ac-91ce2279345d",
+    "title": "Potential XXE Exploitation Attempt In JVM Based Application",
     "status": "test",
     "level": "high",
-    "description": "Detects instances where an SIP service on an OpenCanary node has had a SIP request.",
+    "description": "Detects XML parsing issues, if the application expects to work with XML make sure that the parser is initialized safely.",
     "category": "generic",
     "logsource": {
       "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.collection",
-      "attack.t1123"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "9db5446c-b44a-4291-8b89-fcab5609c3b3",
-    "title": "OpenCanary - VNC Connection Attempt",
-    "status": "test",
-    "level": "high",
-    "description": "Detects instances where a VNC service on an OpenCanary node has had a connection attempt.",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.lateral-movement",
-      "attack.t1021"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "7cded4b3-f09e-405a-b96f-24248433ba44",
-    "title": "OpenCanary - NTP Monlist Request",
-    "status": "test",
-    "level": "high",
-    "description": "Detects instances where an NTP service on an OpenCanary node has had a NTP monlist request.",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.impact",
-      "attack.t1498"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "d7553d7b-f485-479c-b192-cdac6edd83a4",
-    "title": "OpenCanary - NMAP XMAS Scan",
-    "status": "experimental",
-    "level": "high",
-    "description": "Detects instances where an OpenCanary node has been targeted by a NMAP XMAS Scan",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.discovery",
-      "attack.t1046"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "974be8d2-283e-4033-ab08-7505b84204d0",
-    "title": "OpenCanary - Host Port Scan (SYN Scan)",
-    "status": "experimental",
-    "level": "high",
-    "description": "Detects instances where an OpenCanary node has been targeted by a SYN port scan.",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.discovery",
-      "attack.t1046"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "4fe17521-aef3-4e6a-9d6b-4a7c8de155a8",
-    "title": "OpenCanary - GIT Clone Request",
-    "status": "test",
-    "level": "high",
-    "description": "Detects instances where a GIT service on an OpenCanary node has had Git Clone request.",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.collection",
-      "attack.t1213"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "3ec9a16d-0b4f-4967-9542-ebf38ceac7dd",
-    "title": "OpenCanary - MSSQL Login Attempt Via SQLAuth",
-    "status": "test",
-    "level": "high",
-    "description": "Detects instances where an MSSQL service on an OpenCanary node has had a login attempt using SQLAuth.\n",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.credential-access",
-      "attack.collection",
-      "attack.t1003",
-      "attack.t1213"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "547dfc53-ebf6-4afe-8d2e-793d9574975d",
-    "title": "OpenCanary - REDIS Action Command Attempt",
-    "status": "test",
-    "level": "high",
-    "description": "Detects instances where a REDIS service on an OpenCanary node has had an action command attempted.",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.credential-access",
-      "attack.collection",
-      "attack.t1003",
-      "attack.t1213"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "e8a677fd-248c-4eab-94df-de2f6f645884",
-    "title": "OpenCanary - NMAP OS Scan",
-    "status": "experimental",
-    "level": "high",
-    "description": "Detects instances where an OpenCanary node has been targeted by a NMAP OS Scan",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.discovery",
-      "attack.t1046"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "68b8547b-107f-43f3-97fb-900a7d63c190",
-    "title": "OpenCanary - NMAP NULL Scan",
-    "status": "experimental",
-    "level": "high",
-    "description": "Detects instances where an OpenCanary node has been targeted by a NMAP NULL Scan",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.discovery",
-      "attack.t1046"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "512cff7a-683a-43ad-afe0-dd398e872f36",
-    "title": "OpenCanary - Telnet Login Attempt",
-    "status": "test",
-    "level": "high",
-    "description": "Detects instances where a Telnet service on an OpenCanary node has had a login attempt.",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "opencanary"
-    },
-    "tags": [
-      "attack.privilege-escalation",
-      "attack.persistence",
-      "attack.initial-access",
-      "attack.command-and-control",
-      "attack.stealth",
-      "attack.t1133",
-      "attack.t1078"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "8a670c6d-7189-4b1c-8017-a417ca84a086",
-    "title": "Suspicious SQL Error Messages",
-    "status": "test",
-    "level": "high",
-    "description": "Detects SQL error messages that indicate probing for an injection attack",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "sql",
-      "definition": "Requirements: application error logs must be collected (with LOG_LEVEL ERROR and above)"
-    },
-    "tags": [
-      "attack.initial-access",
-      "attack.t1190"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "16c86189-b556-4ee8-b4c7-7e350a195a4f",
-    "title": "Potential Server Side Template Injection In Velocity",
-    "status": "test",
-    "level": "high",
-    "description": "Detects exceptions in velocity template renderer, this most likely happens due to dynamic rendering of user input and may lead to RCE.",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "velocity",
+      "product": "jvm",
       "definition": "Requirements: application error logs must be collected (with LOG_LEVEL=ERROR and above)"
     },
     "tags": [
@@ -1076,6 +404,24 @@
     "raw_yaml": null
   },
   {
+    "id": "bb0e9cec-d4da-46f5-997f-22efc59f3dca",
+    "title": "Potential JNDI Injection Exploitation In JVM Based Application",
+    "status": "test",
+    "level": "high",
+    "description": "Detects potential JNDI Injection exploitation. Often coupled with Log4Shell exploitation.",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "jvm",
+      "definition": "Requirements: application error logs must be collected (with LOG_LEVEL=ERROR and above)"
+    },
+    "tags": [
+      "attack.initial-access",
+      "attack.t1190"
+    ],
+    "raw_yaml": null
+  },
+  {
     "id": "4d0af518-828e-4a04-a751-a7d03f3046ad",
     "title": "Potential OGNL Injection Exploitation In JVM Based Application",
     "status": "test",
@@ -1096,15 +442,15 @@
     "raw_yaml": null
   },
   {
-    "id": "bb0e9cec-d4da-46f5-997f-22efc59f3dca",
-    "title": "Potential JNDI Injection Exploitation In JVM Based Application",
+    "id": "16c86189-b556-4ee8-b4c7-7e350a195a4f",
+    "title": "Potential Server Side Template Injection In Velocity",
     "status": "test",
     "level": "high",
-    "description": "Detects potential JNDI Injection exploitation. Often coupled with Log4Shell exploitation.",
+    "description": "Detects exceptions in velocity template renderer, this most likely happens due to dynamic rendering of user input and may lead to RCE.",
     "category": "generic",
     "logsource": {
       "category": "application",
-      "product": "jvm",
+      "product": "velocity",
       "definition": "Requirements: application error logs must be collected (with LOG_LEVEL=ERROR and above)"
     },
     "tags": [
@@ -1114,370 +460,19 @@
     "raw_yaml": null
   },
   {
-    "id": "c4e06896-e27c-4583-95ac-91ce2279345d",
-    "title": "Potential XXE Exploitation Attempt In JVM Based Application",
-    "status": "test",
-    "level": "high",
-    "description": "Detects XML parsing issues, if the application expects to work with XML make sure that the parser is initialized safely.",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "jvm",
-      "definition": "Requirements: application error logs must be collected (with LOG_LEVEL=ERROR and above)"
-    },
-    "tags": [
-      "attack.initial-access",
-      "attack.t1190"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "19aefed0-ffd4-47dc-a7fc-f8b1425e84f9",
-    "title": "Python SQL Exceptions",
+    "id": "fd435618-981e-4a7c-81f8-f78ce480d616",
+    "title": "Django Framework Exceptions",
     "status": "stable",
     "level": "medium",
-    "description": "Generic rule for SQL exceptions in Python according to PEP 249",
+    "description": "Detects suspicious Django web application framework exceptions that could indicate exploitation attempts",
     "category": "generic",
     "logsource": {
       "category": "application",
-      "product": "python"
+      "product": "django"
     },
     "tags": [
       "attack.initial-access",
       "attack.t1190"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "97661d9d-2beb-4630-b423-68985291a8af",
-    "title": "Potential RCE Exploitation Attempt In NodeJS",
-    "status": "test",
-    "level": "high",
-    "description": "Detects process execution related errors in NodeJS. If the exceptions are caused due to user input then they may suggest an RCE vulnerability.",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "nodejs",
-      "definition": "Requirements: application error logs must be collected (with LOG_LEVEL=ERROR and above)"
-    },
-    "tags": [
-      "attack.initial-access",
-      "attack.t1190"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "65f77b1e-8e79-45bf-bb67-5988a8ce45a5",
-    "title": "SharpHound Recon Account Discovery",
-    "status": "test",
-    "level": "high",
-    "description": "Detects remote RPC calls useb by SharpHound to map remote connections and local group membership.",
-    "category": "generic",
-    "logsource": {
-      "product": "rpc_firewall",
-      "category": "application",
-      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:6bffd098-a112-3610-9833-46c3f87e345a opnum:2"
-    },
-    "tags": [
-      "attack.t1087",
-      "attack.discovery"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "35c55673-84ca-4e99-8d09-e334f3c29539",
-    "title": "Remote Registry Lateral Movement",
-    "status": "test",
-    "level": "high",
-    "description": "Detects remote RPC calls to modify the registry and possible execute code",
-    "category": "generic",
-    "logsource": {
-      "product": "rpc_firewall",
-      "category": "application",
-      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:338cd001-2244-31f1-aaaa-900038001003\""
-    },
-    "tags": [
-      "attack.lateral-movement",
-      "attack.defense-impairment",
-      "attack.t1112",
-      "attack.persistence"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "10018e73-06ec-46ec-8107-9172f1e04ff2",
-    "title": "Remote Server Service Abuse for Lateral Movement",
-    "status": "test",
-    "level": "high",
-    "description": "Detects remote RPC calls to possibly abuse remote encryption service via MS-EFSR",
-    "category": "generic",
-    "logsource": {
-      "product": "rpc_firewall",
-      "category": "application",
-      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:367abb81-9844-35f1-ad32-98f038001003"
-    },
-    "tags": [
-      "attack.lateral-movement",
-      "attack.execution",
-      "attack.t1569.002"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "0fcd1c79-4eeb-4746-aba9-1b458f7a79cb",
-    "title": "Remote Schedule Task Lateral Movement via ATSvc",
-    "status": "test",
-    "level": "high",
-    "description": "Detects remote RPC calls to create or execute a scheduled task via ATSvc",
-    "category": "generic",
-    "logsource": {
-      "product": "rpc_firewall",
-      "category": "application",
-      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:1ff70682-0a51-30e8-076d-740be8cee98b\""
-    },
-    "tags": [
-      "attack.privilege-escalation",
-      "attack.lateral-movement",
-      "attack.execution",
-      "attack.persistence",
-      "attack.t1053",
-      "attack.t1053.002"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "7f7c49eb-2977-4ac8-8ab0-ab1bae14730e",
-    "title": "Remote Schedule Task Recon via ITaskSchedulerService",
-    "status": "test",
-    "level": "high",
-    "description": "Detects remote RPC calls to read information about scheduled tasks",
-    "category": "generic",
-    "logsource": {
-      "product": "rpc_firewall",
-      "category": "application",
-      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:86d35949-83c9-4044-b424-db363231fd0c\""
-    },
-    "tags": [
-      "attack.discovery"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "5f92fff9-82e2-48eb-8fc1-8b133556a551",
-    "title": "Remote Encrypting File System Abuse",
-    "status": "test",
-    "level": "high",
-    "description": "Detects remote RPC calls to possibly abuse remote encryption service via MS-EFSR",
-    "category": "generic",
-    "logsource": {
-      "product": "rpc_firewall",
-      "category": "application",
-      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:df1941c5-fe89-4e79-bf10-463657acf44d or c681d488-d850-11d0-8c52-00c04fd90f7e"
-    },
-    "tags": [
-      "attack.lateral-movement"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "2053961f-44c7-4a64-b62d-f6e72800af0d",
-    "title": "Remote Event Log Recon",
-    "status": "test",
-    "level": "high",
-    "description": "Detects remote RPC calls to get event log information via EVEN or EVEN6",
-    "category": "generic",
-    "logsource": {
-      "product": "rpc_firewall",
-      "category": "application",
-      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:82273fdc-e32a-18c3-3f78-827929dc23ea and uuid:f6beaff7-1e19-4fbb-9f8f-b89e2018337c\""
-    },
-    "tags": [
-      "attack.discovery"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "56fda488-113e-4ce9-8076-afc2457922c3",
-    "title": "Possible DCSync Attack",
-    "status": "test",
-    "level": "high",
-    "description": "Detects remote RPC calls to MS-DRSR from non DC hosts, which could indicate DCSync / DCShadow attacks.",
-    "category": "generic",
-    "logsource": {
-      "product": "rpc_firewall",
-      "category": "application",
-      "definition": "Requirements: install and apply the RPC Firewall to all processes, enable DRSR UUID (e3514235-4b06-11d1-ab04-00c04fc2dcd2) for \"dangerous\" opcodes (not 0,1 or 12) only from trusted IPs (DCs)"
-    },
-    "tags": [
-      "attack.t1033",
-      "attack.discovery"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "6d580420-ff3f-4e0e-b6b0-41b90c787e28",
-    "title": "SharpHound Recon Sessions",
-    "status": "test",
-    "level": "high",
-    "description": "Detects remote RPC calls useb by SharpHound to map remote connections and local group membership.",
-    "category": "generic",
-    "logsource": {
-      "product": "rpc_firewall",
-      "category": "application",
-      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:4b324fc8-1670-01d3-1278-5a47bf6ee188 opnum:12"
-    },
-    "tags": [
-      "attack.discovery",
-      "attack.t1033"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "0a3ff354-93fc-4273-8a03-1078782de5b7",
-    "title": "Recon Activity via SASec",
-    "status": "test",
-    "level": "high",
-    "description": "Detects remote RPC calls to read information about scheduled tasks via SASec",
-    "category": "generic",
-    "logsource": {
-      "product": "rpc_firewall",
-      "category": "application",
-      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:378e52b0-c0a9-11cf-822d-00aa0051e40f\""
-    },
-    "tags": [
-      "attack.discovery"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "68050b10-e477-4377-a99b-3721b422d6ef",
-    "title": "Remote DCOM/WMI Lateral Movement",
-    "status": "test",
-    "level": "high",
-    "description": "Detects remote RPC calls that performs remote DCOM operations. These could be abused for lateral movement via DCOM or WMI.",
-    "category": "generic",
-    "logsource": {
-      "product": "rpc_firewall",
-      "category": "application",
-      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:367abb81-9844-35f1-ad32-98f038001003"
-    },
-    "tags": [
-      "attack.lateral-movement",
-      "attack.execution",
-      "attack.t1021.003",
-      "attack.t1047"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "ace3ff54-e7fd-46bd-8ea0-74b49a0aca1d",
-    "title": "Remote Schedule Task Lateral Movement via ITaskSchedulerService",
-    "status": "test",
-    "level": "high",
-    "description": "Detects remote RPC calls to create or execute a scheduled task",
-    "category": "generic",
-    "logsource": {
-      "product": "rpc_firewall",
-      "category": "application",
-      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:86d35949-83c9-4044-b424-db363231fd0c\""
-    },
-    "tags": [
-      "attack.privilege-escalation",
-      "attack.persistence",
-      "attack.execution",
-      "attack.lateral-movement",
-      "attack.t1053",
-      "attack.t1053.002"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "aff229ab-f8cd-447b-b215-084d11e79eb0",
-    "title": "Remote Schedule Task Lateral Movement via SASec",
-    "status": "test",
-    "level": "high",
-    "description": "Detects remote RPC calls to create or execute a scheduled task via SASec",
-    "category": "generic",
-    "logsource": {
-      "product": "rpc_firewall",
-      "category": "application",
-      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:378e52b0-c0a9-11cf-822d-00aa0051e40f\""
-    },
-    "tags": [
-      "attack.privilege-escalation",
-      "attack.lateral-movement",
-      "attack.execution",
-      "attack.persistence",
-      "attack.t1053",
-      "attack.t1053.002"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "f177f2bc-5f3e-4453-b599-57eefce9a59c",
-    "title": "Remote Schedule Task Recon via AtScv",
-    "status": "test",
-    "level": "high",
-    "description": "Detects remote RPC calls to read information about scheduled tasks via AtScv",
-    "category": "generic",
-    "logsource": {
-      "product": "rpc_firewall",
-      "category": "application",
-      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:1ff70682-0a51-30e8-076d-740be8cee98b\""
-    },
-    "tags": [
-      "attack.discovery"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "b6ea3cc7-542f-43ef-bbe4-980fbed444c7",
-    "title": "Remote Server Service Abuse",
-    "status": "test",
-    "level": "high",
-    "description": "Detects remote RPC calls to possibly abuse remote encryption service via MS-SRVS",
-    "category": "generic",
-    "logsource": {
-      "product": "rpc_firewall",
-      "category": "application",
-      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:4b324fc8-1670-01d3-1278-5a47bf6ee188"
-    },
-    "tags": [
-      "attack.lateral-movement"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "bc3a4b0c-e167-48e1-aa88-b3020950e560",
-    "title": "Remote Printing Abuse for Lateral Movement",
-    "status": "test",
-    "level": "high",
-    "description": "Detects remote RPC calls to possibly abuse remote printing service via MS-RPRN / MS-PAR",
-    "category": "generic",
-    "logsource": {
-      "product": "rpc_firewall",
-      "category": "application",
-      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:12345678-1234-abcd-ef00-0123456789ab or 76f03f96-cdfd-44fc-a22c-64950a001209 or ae33069b-a2a8-46ee-a235-ddfd339be281 or 0b6edbfa-4a24-4fc6-8a23-942b1eca65d1"
-    },
-    "tags": [
-      "attack.lateral-movement"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "d8ffe17e-04be-4886-beb9-c1dd1944b9a8",
-    "title": "Remote Registry Recon",
-    "status": "test",
-    "level": "high",
-    "description": "Detects remote RPC calls to collect information",
-    "category": "generic",
-    "logsource": {
-      "product": "rpc_firewall",
-      "category": "application",
-      "definition": "Requirements: install and apply the RPC Firewall to all processes with \"audit:true action:block uuid:338cd001-2244-31f1-aaaa-900038001003\""
-    },
-    "tags": [
-      "attack.discovery"
     ],
     "raw_yaml": null
   },
@@ -1534,15 +529,93 @@
     "raw_yaml": null
   },
   {
-    "id": "fd435618-981e-4a7c-81f8-f78ce480d616",
-    "title": "Django Framework Exceptions",
-    "status": "stable",
-    "level": "medium",
-    "description": "Detects suspicious Django web application framework exceptions that could indicate exploitation attempts",
+    "id": "22777c9e-873a-4b49-855f-6072ab861a52",
+    "title": "OpenCanary - SMB File Open Request",
+    "status": "test",
+    "level": "high",
+    "description": "Detects instances where an SMB service on an OpenCanary node has had a file open request.",
     "category": "generic",
     "logsource": {
       "category": "application",
-      "product": "django"
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.lateral-movement",
+      "attack.collection",
+      "attack.t1021",
+      "attack.t1005"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "547dfc53-ebf6-4afe-8d2e-793d9574975d",
+    "title": "OpenCanary - REDIS Action Command Attempt",
+    "status": "test",
+    "level": "high",
+    "description": "Detects instances where a REDIS service on an OpenCanary node has had an action command attempted.",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.credential-access",
+      "attack.collection",
+      "attack.t1003",
+      "attack.t1213"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "4fe17521-aef3-4e6a-9d6b-4a7c8de155a8",
+    "title": "OpenCanary - GIT Clone Request",
+    "status": "test",
+    "level": "high",
+    "description": "Detects instances where a GIT service on an OpenCanary node has had Git Clone request.",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.collection",
+      "attack.t1213"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "ff7139bc-fdb1-4437-92f2-6afefe8884cb",
+    "title": "OpenCanary - SSH Login Attempt",
+    "status": "test",
+    "level": "high",
+    "description": "Detects instances where an SSH service on an OpenCanary node has had a login attempt.",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.privilege-escalation",
+      "attack.initial-access",
+      "attack.lateral-movement",
+      "attack.persistence",
+      "attack.stealth",
+      "attack.t1133",
+      "attack.t1021",
+      "attack.t1078"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "af6c3078-84cd-4c68-8842-08b76bd81b13",
+    "title": "OpenCanary - HTTP GET Request",
+    "status": "test",
+    "level": "high",
+    "description": "Detects instances where an HTTP service on an OpenCanary node has received a GET request.",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
     },
     "tags": [
       "attack.initial-access",
@@ -1551,317 +624,676 @@
     "raw_yaml": null
   },
   {
-    "id": "02cf536a-cf21-4876-8842-4159c8aee3cc",
-    "title": "Github Push Protection Bypass Detected",
-    "status": "test",
-    "level": "low",
-    "description": "Detects when a user bypasses the push protection on a secret detected by secret scanning.",
-    "category": "generic",
-    "logsource": {
-      "product": "github",
-      "service": "audit",
-      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
-    },
-    "tags": [
-      "attack.defense-impairment",
-      "attack.t1685"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "2f575940-d85e-4ddc-af13-17dad6f1a0ef",
-    "title": "Github SSH Certificate Configuration Changed",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when changes are made to the SSH certificate configuration of the organization.",
-    "category": "generic",
-    "logsource": {
-      "product": "github",
-      "service": "audit",
-      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
-    },
-    "tags": [
-      "attack.initial-access",
-      "attack.persistence",
-      "attack.privilege-escalation",
-      "attack.stealth",
-      "attack.t1078.004"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "04ad83ef-1a37-4c10-b57a-81092164bf33",
-    "title": "Github Repository/Organization Transferred",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when a repository or an organization is being transferred to another location.",
-    "category": "generic",
-    "logsource": {
-      "product": "github",
-      "service": "audit",
-      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
-    },
-    "tags": [
-      "attack.persistence",
-      "attack.exfiltration",
-      "attack.t1020",
-      "attack.t1537"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "eaa9ac35-1730-441f-9587-25767bde99d7",
-    "title": "Github Outside Collaborator Detected",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when an organization member or an outside collaborator is added to or removed from a project board or has their permission level changed or when an owner removes an outside collaborator from an organization or when two-factor authentication is required in an organization and an outside collaborator does not use 2FA or disables 2FA.\n",
-    "category": "generic",
-    "logsource": {
-      "product": "github",
-      "service": "audit",
-      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
-    },
-    "tags": [
-      "attack.privilege-escalation",
-      "attack.persistence",
-      "attack.collection",
-      "attack.t1098.001",
-      "attack.t1098.003",
-      "attack.t1213.003"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "f9405037-bc97-4eb7-baba-167dad399b83",
-    "title": "Github New Secret Created",
-    "status": "test",
-    "level": "low",
-    "description": "Detects when a user creates action secret for the organization, environment, codespaces or repository.",
-    "category": "generic",
-    "logsource": {
-      "product": "github",
-      "service": "audit",
-      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
-    },
-    "tags": [
-      "attack.persistence",
-      "attack.privilege-escalation",
-      "attack.initial-access",
-      "attack.stealth",
-      "attack.t1078.004"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "3883d9a0-fd0f-440f-afbb-445a2a799bb8",
-    "title": "Github Secret Scanning Feature Disabled",
+    "id": "e30de276-68ec-435c-ab99-ef3befec6c61",
+    "title": "OpenCanary - SIP Request",
     "status": "test",
     "level": "high",
-    "description": "Detects if the secret scanning feature is disabled for an enterprise or repository.",
+    "description": "Detects instances where an SIP service on an OpenCanary node has had a SIP request.",
     "category": "generic",
     "logsource": {
-      "product": "github",
-      "service": "audit",
-      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
-    },
-    "tags": [
-      "attack.defense-impairment",
-      "attack.t1685"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "34e1c7d4-0cd5-419d-9f1b-1dad3f61018d",
-    "title": "Outdated Dependency Or Vulnerability Alert Disabled",
-    "status": "test",
-    "level": "high",
-    "description": "Dependabot performs a scan to detect insecure dependencies, and sends Dependabot alerts.\nThis rule detects when an organization owner disables Dependabot alerts private repositories or Dependabot security updates for all repositories.\n",
-    "category": "generic",
-    "logsource": {
-      "product": "github",
-      "service": "audit",
-      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
-    },
-    "tags": [
-      "attack.initial-access",
-      "attack.t1195.001"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "ccd55945-badd-4bae-936b-823a735d37dd",
-    "title": "Github Push Protection Disabled",
-    "status": "test",
-    "level": "high",
-    "description": "Detects if the push protection feature is disabled for an organization, enterprise, repositories or custom pattern rules.",
-    "category": "generic",
-    "logsource": {
-      "product": "github",
-      "service": "audit",
-      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
-    },
-    "tags": [
-      "attack.defense-impairment",
-      "attack.t1685"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "0c46d4f4-a2bf-4104-9597-8d653fc2bb55",
-    "title": "GitHub Repository Pages Site Changed to Public",
-    "status": "experimental",
-    "level": "low",
-    "description": "Detects when a GitHub Pages site of a repository is made public. This usually is part of a publishing process but could indicate or lead to potential unauthorized exposure of sensitive information or code.\n",
-    "category": "generic",
-    "logsource": {
-      "product": "github",
-      "service": "audit"
+      "category": "application",
+      "product": "opencanary"
     },
     "tags": [
       "attack.collection",
-      "attack.exfiltration",
-      "attack.t1567.001"
+      "attack.t1123"
     ],
     "raw_yaml": null
   },
   {
-    "id": "8622c92d-c00e-463c-b09d-fd06166f6794",
-    "title": "Github High Risk Configuration Disabled",
+    "id": "7cded4b3-f09e-405a-b96f-24248433ba44",
+    "title": "OpenCanary - NTP Monlist Request",
     "status": "test",
     "level": "high",
-    "description": "Detects when a user disables a critical security feature for an organization.",
+    "description": "Detects instances where an NTP service on an OpenCanary node has had a NTP monlist request.",
     "category": "generic",
     "logsource": {
-      "product": "github",
-      "service": "audit",
-      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.impact",
+      "attack.t1498"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "e9856028-fd4e-46e6-b3d1-10f7ceb95078",
+    "title": "OpenCanary - SNMP OID Request",
+    "status": "test",
+    "level": "high",
+    "description": "Detects instances where an SNMP service on an OpenCanary node has had an OID request.",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.discovery",
+      "attack.lateral-movement",
+      "attack.t1016",
+      "attack.t1021"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "5498fc09-adc6-4804-b9d9-5cca1f0b8760",
+    "title": "OpenCanary - HTTPPROXY Login Attempt",
+    "status": "test",
+    "level": "high",
+    "description": "Detects instances where an HTTPPROXY service on an OpenCanary node has had an attempt to proxy another page.\n",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.initial-access",
+      "attack.command-and-control",
+      "attack.t1090"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "6e78f90f-0043-4a01-ac41-f97681613a66",
+    "title": "OpenCanary - MSSQL Login Attempt Via Windows Authentication",
+    "status": "test",
+    "level": "high",
+    "description": "Detects instances where an MSSQL service on an OpenCanary node has had a login attempt using Windows Authentication.\n",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
     },
     "tags": [
       "attack.credential-access",
-      "attack.persistence",
-      "attack.defense-impairment",
-      "attack.t1556"
+      "attack.collection",
+      "attack.t1003",
+      "attack.t1213"
     ],
     "raw_yaml": null
   },
   {
-    "id": "dca8991c-cb16-4128-abf8-6b11e5cd156f",
-    "title": "GitHub Repository Archive Status Changed",
+    "id": "68b8547b-107f-43f3-97fb-900a7d63c190",
+    "title": "OpenCanary - NMAP NULL Scan",
     "status": "experimental",
-    "level": "low",
-    "description": "Detects when a GitHub repository is archived or unarchived, which may indicate unauthorized changes to repository status.\n",
+    "level": "high",
+    "description": "Detects instances where an OpenCanary node has been targeted by a NMAP NULL Scan",
     "category": "generic",
     "logsource": {
-      "product": "github",
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.discovery",
+      "attack.t1046"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "eae8c0c8-e5da-450a-9d7d-66aa56cd26b6",
+    "title": "OpenCanary - NMAP FIN Scan",
+    "status": "experimental",
+    "level": "high",
+    "description": "Detects instances where an OpenCanary node has been targeted by a NMAP FIN Scan",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.discovery",
+      "attack.t1046"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "d7553d7b-f485-479c-b192-cdac6edd83a4",
+    "title": "OpenCanary - NMAP XMAS Scan",
+    "status": "experimental",
+    "level": "high",
+    "description": "Detects instances where an OpenCanary node has been targeted by a NMAP XMAS Scan",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.discovery",
+      "attack.t1046"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "598290cf-5932-45cd-9123-be1e05ab4f2e",
+    "title": "OpenCanary - RDP New Connection Attempt",
+    "status": "experimental",
+    "level": "high",
+    "description": "Detects instances where an RDP service on an OpenCanary node has had a connection attempt.",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.initial-access",
+      "attack.lateral-movement",
+      "attack.persistence",
+      "attack.t1133",
+      "attack.t1021.001"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "9db5446c-b44a-4291-8b89-fcab5609c3b3",
+    "title": "OpenCanary - VNC Connection Attempt",
+    "status": "test",
+    "level": "high",
+    "description": "Detects instances where a VNC service on an OpenCanary node has had a connection attempt.",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.lateral-movement",
+      "attack.t1021"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "974be8d2-283e-4033-ab08-7505b84204d0",
+    "title": "OpenCanary - Host Port Scan (SYN Scan)",
+    "status": "experimental",
+    "level": "high",
+    "description": "Detects instances where an OpenCanary node has been targeted by a SYN port scan.",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.discovery",
+      "attack.t1046"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "e8a677fd-248c-4eab-94df-de2f6f645884",
+    "title": "OpenCanary - NMAP OS Scan",
+    "status": "experimental",
+    "level": "high",
+    "description": "Detects instances where an OpenCanary node has been targeted by a NMAP OS Scan",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.discovery",
+      "attack.t1046"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "af1ac430-df6b-4b38-b976-0b52f07a0252",
+    "title": "OpenCanary - HTTP POST Login Attempt",
+    "status": "test",
+    "level": "high",
+    "description": "Detects instances where an HTTP service on an OpenCanary node has had login attempt via Form POST.\n",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.initial-access",
+      "attack.t1190"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "512cff7a-683a-43ad-afe0-dd398e872f36",
+    "title": "OpenCanary - Telnet Login Attempt",
+    "status": "test",
+    "level": "high",
+    "description": "Detects instances where a Telnet service on an OpenCanary node has had a login attempt.",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.privilege-escalation",
+      "attack.persistence",
+      "attack.initial-access",
+      "attack.command-and-control",
+      "attack.stealth",
+      "attack.t1133",
+      "attack.t1078"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "6991bc2b-ae2e-447f-bc55-3a1ba04c14e5",
+    "title": "OpenCanary - FTP Login Attempt",
+    "status": "test",
+    "level": "high",
+    "description": "Detects instances where an FTP service on an OpenCanary node has had a login attempt.",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.initial-access",
+      "attack.exfiltration",
+      "attack.lateral-movement",
+      "attack.t1190",
+      "attack.t1021"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "e7d79a1b-25ed-4956-bd56-bd344fa8fd06",
+    "title": "OpenCanary - MySQL Login Attempt",
+    "status": "test",
+    "level": "high",
+    "description": "Detects instances where a MySQL service on an OpenCanary node has had a login attempt.",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.credential-access",
+      "attack.collection",
+      "attack.t1003",
+      "attack.t1213"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "cd55f721-5623-4663-bd9b-5229cab5237d",
+    "title": "OpenCanary - SSH New Connection Attempt",
+    "status": "test",
+    "level": "high",
+    "description": "Detects instances where an SSH service on an OpenCanary node has had a connection attempt.",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.privilege-escalation",
+      "attack.initial-access",
+      "attack.lateral-movement",
+      "attack.persistence",
+      "attack.stealth",
+      "attack.t1133",
+      "attack.t1021",
+      "attack.t1078"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "b4e6b016-a2ac-4759-ad85-8000b300d61e",
+    "title": "OpenCanary - TFTP Request",
+    "status": "test",
+    "level": "high",
+    "description": "Detects instances where a TFTP service on an OpenCanary node has had a request.",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.exfiltration",
+      "attack.t1041"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "3ec9a16d-0b4f-4967-9542-ebf38ceac7dd",
+    "title": "OpenCanary - MSSQL Login Attempt Via SQLAuth",
+    "status": "test",
+    "level": "high",
+    "description": "Detects instances where an MSSQL service on an OpenCanary node has had a login attempt using SQLAuth.\n",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "opencanary"
+    },
+    "tags": [
+      "attack.credential-access",
+      "attack.collection",
+      "attack.t1003",
+      "attack.t1213"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "8a670c6d-7189-4b1c-8017-a417ca84a086",
+    "title": "Suspicious SQL Error Messages",
+    "status": "test",
+    "level": "high",
+    "description": "Detects SQL error messages that indicate probing for an injection attack",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "sql",
+      "definition": "Requirements: application error logs must be collected (with LOG_LEVEL ERROR and above)"
+    },
+    "tags": [
+      "attack.initial-access",
+      "attack.t1190"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "0c9b3bda-41a6-4442-9345-356ae86343dc",
+    "title": "Kubernetes CronJob/Job Modification",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when a Kubernetes CronJob or Job is created or modified.\nA Kubernetes Job creates one or more pods to accomplish a specific task, and a CronJob creates Jobs on a recurring schedule.\nAn adversary can take advantage of this Kubernetes object to schedule Jobs to run containers that execute malicious code within a cluster, allowing them to achieve persistence.\n",
+    "category": "generic",
+    "logsource": {
+      "product": "kubernetes",
       "service": "audit"
     },
     "tags": [
       "attack.persistence",
-      "attack.impact",
-      "attack.defense-impairment"
+      "attack.privilege-escalation",
+      "attack.execution"
     ],
     "raw_yaml": null
   },
   {
-    "id": "16a71777-0b2e-4db7-9888-9d59cb75200b",
-    "title": "Github Delete Action Invoked",
+    "id": "ad9012a6-e518-4432-9890-f3b82b8fc71f",
+    "title": "Potential Sidecar Injection Into Running Deployment",
     "status": "test",
     "level": "medium",
-    "description": "Detects delete action in the Github audit logs for codespaces, environment, project and repo.",
+    "description": "Detects attempts to inject a sidecar container into a running deployment.\nA sidecar container is an additional container within a pod, that resides alongside the main container.\nOne way to add containers to running resources like Deployments/DeamonSets/StatefulSets, is via a \"kubectl patch\" operation.\nBy injecting a new container within a legitimate pod, an attacker can run their code and hide their activity, instead of running their own separated pod in the cluster.\n",
     "category": "generic",
     "logsource": {
-      "product": "github",
-      "service": "audit",
-      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
+      "category": "application",
+      "product": "kubernetes",
+      "service": "audit"
     },
     "tags": [
-      "attack.impact",
-      "attack.collection",
-      "attack.t1213.003"
+      "attack.t1609",
+      "attack.execution"
     ],
     "raw_yaml": null
   },
   {
-    "id": "f8ed0e8f-7438-4b79-85eb-f358ef2fbebd",
-    "title": "Github Self Hosted Runner Changes Detected",
+    "id": "eeb3e9e1-b685-44e4-9232-6bb701f925b5",
+    "title": "Kubernetes Secrets Enumeration",
     "status": "test",
     "level": "low",
-    "description": "A self-hosted runner is a system that you deploy and manage to execute jobs from GitHub Actions on GitHub.com.\nThis rule detects changes to self-hosted runners configurations in the environment. The self-hosted runner configuration changes once detected,\nit should be validated from GitHub UI because the log entry may not provide full context.\n",
+    "description": "Detects enumeration of Kubernetes secrets.",
     "category": "generic",
     "logsource": {
-      "product": "github",
-      "service": "audit",
-      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
+      "category": "application",
+      "product": "kubernetes",
+      "service": "audit"
     },
     "tags": [
-      "attack.impact",
+      "attack.t1552.007",
+      "attack.credential-access"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "402b955c-8fe0-4a8c-b635-622b4ac5f902",
+    "title": "Container With A hostPath Mount Created",
+    "status": "test",
+    "level": "low",
+    "description": "Detects creation of a container with a hostPath mount.\nA hostPath volume mounts a directory or a file from the node to the container.\nAttackers who have permissions to create a new pod in the cluster may create one with a writable hostPath volume and chroot to escape to the underlying node.\n",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "kubernetes",
+      "service": "audit"
+    },
+    "tags": [
+      "attack.t1611",
+      "attack.privilege-escalation"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "c5cd1b20-36bb-488d-8c05-486be3d0cb97",
+    "title": "Privileged Container Deployed",
+    "status": "test",
+    "level": "low",
+    "description": "Detects the creation of a \"privileged\" container, an action which could be indicative of a threat actor mounting a container breakout attacks.\nA privileged container is a container that can access the host with all of the root capabilities of the host machine. This allows it to view, interact and modify processes, network operations, IPC calls, the file system, mount points, SELinux configurations etc. as the root user on the host.\nVarious versions of \"privileged\" containers can be specified, e.g. by setting the securityContext.privileged flag in the resource specification, setting non-standard Linux capabilities, or configuring the hostNetwork/hostPID fields\n",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "kubernetes",
+      "service": "audit"
+    },
+    "tags": [
+      "attack.t1611",
+      "attack.privilege-escalation"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "a1b0ca4e-7835-413e-8471-3ff2b8a66be6",
+    "title": "Potential Remote Command Execution In Pod Container",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects attempts to execute remote commands, within a Pod's container using e.g. the \"kubectl exec\" command.\n",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "kubernetes",
+      "service": "audit"
+    },
+    "tags": [
+      "attack.t1609",
+      "attack.execution"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "3132570d-cab2-4561-9ea6-1743644b2290",
+    "title": "Kubernetes Events Deleted",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when events are deleted in Kubernetes.\nAn adversary may delete Kubernetes events in an attempt to evade detection.\n",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "kubernetes",
+      "service": "audit"
+    },
+    "tags": [
+      "attack.stealth",
+      "attack.t1070"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "a80d927d-ac6e-443f-a867-e8d6e3897318",
+    "title": "Creation Of Pod In System Namespace",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects deployments of pods within the kube-system namespace, which could be intended to imitate system pods.\nSystem pods, created by controllers such as Deployments or DaemonSets have random suffixes in their names.\nAttackers can use this fact and name their backdoor pods as if they were created by these controllers to avoid detection.\nDeployment of such a backdoor container e.g. named kube-proxy-bv61v, could be attempted in the kube-system namespace alongside the other administrative containers.\n",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "kubernetes",
+      "service": "audit"
+    },
+    "tags": [
+      "attack.stealth",
+      "attack.t1036.005"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "10b97915-ec8d-455f-a815-9a78926585f6",
+    "title": "Kubernetes Rolebinding Modification",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when a Kubernetes Rolebinding is created or modified.\n",
+    "category": "generic",
+    "logsource": {
+      "product": "kubernetes",
+      "service": "audit"
+    },
+    "tags": [
+      "attack.privilege-escalation"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "597a7e84-187d-458b-9e4f-2f5a0e676711",
+    "title": "Kubernetes Potential Enumeration Activity",
+    "status": "experimental",
+    "level": "medium",
+    "description": "Detects potential Kubernetes enumeration or attack activity via the audit log.\nThis includes the execution of common shells, utilities, or specialized tools like 'Rakkess' (access_matrix) and 'TruffleHog' via Kubernetes API requests.\nAttackers use these methods to perform reconnaissance (enumeration), secret harvesting, or execute code (exec) within a cluster.\n",
+    "category": "generic",
+    "logsource": {
+      "product": "kubernetes",
+      "service": "audit"
+    },
+    "tags": [
+      "attack.execution",
       "attack.discovery",
-      "attack.collection",
-      "attack.persistence",
+      "attack.t1609",
+      "attack.t1613"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "84b777bd-c946-4d17-aa2e-c39f5a454325",
+    "title": "RBAC Permission Enumeration Attempt",
+    "status": "test",
+    "level": "low",
+    "description": "Detects identities attempting to enumerate their Kubernetes RBAC permissions.\nIn the early stages of a breach, attackers will aim to list the permissions they have within the compromised environment.\nIn a Kubernetes cluster, this can be achieved by interacting with the API server, and querying the SelfSubjectAccessReview API via e.g. a \"kubectl auth can-i --list\" command.\nThis will enumerate the Role-Based Access Controls (RBAC) rules defining the compromised user's authorization.\n",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "kubernetes",
+      "service": "audit"
+    },
+    "tags": [
+      "attack.t1069.003",
+      "attack.t1087.004",
+      "attack.discovery"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "58d31a75-a4f8-4c40-985b-373d58162ca2",
+    "title": "Kubernetes Secrets Modified or Deleted",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when Kubernetes Secrets are Modified or Deleted.\n",
+    "category": "generic",
+    "logsource": {
+      "product": "kubernetes",
+      "service": "audit"
+    },
+    "tags": [
+      "attack.credential-access"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "eed82177-38f5-4299-8a76-098d50d225ab",
+    "title": "Kubernetes Admission Controller Modification",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when a modification (create, update or replace) action is taken that affects mutating or validating webhook configurations, as they can be used by an adversary to achieve persistence or exfiltrate access credentials.\n",
+    "category": "generic",
+    "logsource": {
+      "product": "kubernetes",
+      "service": "audit"
+    },
+    "tags": [
       "attack.privilege-escalation",
       "attack.initial-access",
+      "attack.persistence",
       "attack.stealth",
-      "attack.t1526",
-      "attack.t1213.003",
-      "attack.t1078.004"
+      "attack.t1078",
+      "attack.credential-access",
+      "attack.t1552",
+      "attack.t1552.007"
     ],
     "raw_yaml": null
   },
   {
-    "id": "69b3bd1e-b38a-462f-9a23-fbdbf63d2294",
-    "title": "Github Fork Private Repositories Setting Enabled/Cleared",
+    "id": "0d933542-1f1f-420d-97d4-21b2c3c492d9",
+    "title": "Kubernetes Unauthorized or Unauthenticated Access",
     "status": "test",
-    "level": "medium",
-    "description": "Detects when the policy allowing forks of private and internal repositories is changed (enabled or cleared).\n",
+    "level": "low",
+    "description": "Detects when a request to the Kubernetes API is rejected due to lack of authorization or due to an expired authentication token being used.\nThis may indicate an attacker attempting to leverage credentials they have obtained.\n",
     "category": "generic",
     "logsource": {
-      "product": "github",
-      "service": "audit",
-      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
+      "product": "kubernetes",
+      "service": "audit"
+    },
+    "tags": [
+      "attack.privilege-escalation"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "e31bae15-83ed-473e-bf31-faf4f8a17d36",
+    "title": "New Kubernetes Service Account Created",
+    "status": "test",
+    "level": "low",
+    "description": "Detects creation of new Kubernetes service account, which could indicate an attacker's attempt to persist within a cluster.\n",
+    "category": "generic",
+    "logsource": {
+      "category": "application",
+      "product": "kubernetes",
+      "service": "audit"
     },
     "tags": [
       "attack.persistence",
-      "attack.exfiltration",
-      "attack.t1020",
-      "attack.t1537"
+      "attack.t1136"
     ],
     "raw_yaml": null
   },
   {
-    "id": "3908d64a-3c06-4091-b503-b3a94424533b",
-    "title": "New Github Organization Member Added",
+    "id": "40967487-139b-4811-81d9-c9767a92aa5a",
+    "title": "Deployment Deleted From Kubernetes Cluster",
     "status": "test",
-    "level": "informational",
-    "description": "Detects when a new member is added or invited to a github organization.",
+    "level": "low",
+    "description": "Detects the removal of a deployment from a Kubernetes cluster.\nThis could indicate disruptive activity aiming to impact business operations.\n",
     "category": "generic",
     "logsource": {
-      "product": "github",
-      "service": "audit",
-      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
+      "category": "application",
+      "product": "kubernetes",
+      "service": "audit"
     },
     "tags": [
-      "attack.persistence",
-      "attack.t1136.003"
+      "attack.t1498",
+      "attack.impact"
     ],
     "raw_yaml": null
   },
   {
-    "id": "d3f90469-fb05-42ce-b67d-0fded91bbef3",
-    "title": "Bitbucket User Login Failure Via SSH",
+    "id": "42ccce6d-7bd3-4930-95cd-e4d83fa94a30",
+    "title": "Bitbucket Project Secret Scanning Allowlist Added",
     "status": "test",
-    "level": "medium",
-    "description": "Detects SSH user login access failures.\nPlease note that this rule can be noisy and is recommended to use with correlation based on \"author.name\" field.\n",
+    "level": "low",
+    "description": "Detects when a secret scanning allowlist rule is added for projects.",
     "category": "generic",
     "logsource": {
       "product": "bitbucket",
       "service": "audit",
-      "definition": "Requirements: \"Advance\" log level is required to receive these audit events."
+      "definition": "Requirements: \"Basic\" log level is required to receive these audit events."
     },
     "tags": [
-      "attack.lateral-movement",
-      "attack.credential-access",
-      "attack.t1021.004",
-      "attack.t1110"
+      "attack.defense-impairment",
+      "attack.t1685"
     ],
     "raw_yaml": null
   },
@@ -1882,6 +1314,84 @@
       "attack.resource-development",
       "attack.t1213.003",
       "attack.t1586"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "195e1b9d-bfc2-4ffa-ab4e-35aef69815f8",
+    "title": "Bitbucket Full Data Export Triggered",
+    "status": "test",
+    "level": "high",
+    "description": "Detects when full data export is attempted.",
+    "category": "generic",
+    "logsource": {
+      "product": "bitbucket",
+      "service": "audit",
+      "definition": "Requirements: \"Advance\" log level is required to receive these audit events."
+    },
+    "tags": [
+      "attack.collection",
+      "attack.t1213.003"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "87cc6698-3e07-4ba2-9b43-a85a73e151e2",
+    "title": "Bitbucket User Permissions Export Attempt",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects user permission data export attempt.",
+    "category": "generic",
+    "logsource": {
+      "product": "bitbucket",
+      "service": "audit",
+      "definition": "Requirements: \"Advance\" log level is required to receive these audit events."
+    },
+    "tags": [
+      "attack.reconnaissance",
+      "attack.collection",
+      "attack.discovery",
+      "attack.t1213",
+      "attack.t1082",
+      "attack.t1591.004"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "7215374a-de4f-4b33-8ba5-70804c9251d3",
+    "title": "Bitbucket Unauthorized Access To A Resource",
+    "status": "test",
+    "level": "critical",
+    "description": "Detects unauthorized access attempts to a resource.",
+    "category": "generic",
+    "logsource": {
+      "product": "bitbucket",
+      "service": "audit",
+      "definition": "Requirements: \"Advance\" log level is required to receive these audit events."
+    },
+    "tags": [
+      "attack.resource-development",
+      "attack.t1586"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "16ab6143-510a-44e2-a615-bdb80b8317fc",
+    "title": "Bitbucket Global SSH Settings Changed",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects Bitbucket global SSH access configuration changes.",
+    "category": "generic",
+    "logsource": {
+      "product": "bitbucket",
+      "service": "audit",
+      "definition": "Requirements: \"Advance\" log level is required to receive these audit events."
+    },
+    "tags": [
+      "attack.lateral-movement",
+      "attack.defense-impairment",
+      "attack.t1685",
+      "attack.t1021.004"
     ],
     "raw_yaml": null
   },
@@ -1908,11 +1418,11 @@
     "raw_yaml": null
   },
   {
-    "id": "6aa12161-235a-4dfb-9c74-fe08df8d8da1",
-    "title": "Bitbucket Audit Log Configuration Updated",
+    "id": "ff91e3f0-ad15-459f-9a85-1556390c138d",
+    "title": "Bitbucket Secret Scanning Rule Deleted",
     "status": "test",
-    "level": "medium",
-    "description": "Detects changes to the bitbucket audit log configuration.",
+    "level": "low",
+    "description": "Detects when secret scanning rule is deleted for the project or repository.",
     "category": "generic",
     "logsource": {
       "product": "bitbucket",
@@ -1926,11 +1436,29 @@
     "raw_yaml": null
   },
   {
-    "id": "b91e8d5e-0033-44fe-973f-b730316f23a1",
-    "title": "Bitbucket Secret Scanning Exempt Repository Added",
+    "id": "e16cf0f0-ee88-4901-bd0b-4c8d13d9ee05",
+    "title": "Bitbucket Global Secret Scanning Rule Deleted",
     "status": "test",
-    "level": "high",
-    "description": "Detects when a repository is exempted from secret scanning feature.",
+    "level": "medium",
+    "description": "Detects Bitbucket global secret scanning rule deletion activity.",
+    "category": "generic",
+    "logsource": {
+      "product": "bitbucket",
+      "service": "audit",
+      "definition": "Requirements: \"Basic\" log level is required to receive these audit events."
+    },
+    "tags": [
+      "attack.defense-impairment",
+      "attack.t1685"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "6aa12161-235a-4dfb-9c74-fe08df8d8da1",
+    "title": "Bitbucket Audit Log Configuration Updated",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects changes to the bitbucket audit log configuration.",
     "category": "generic",
     "logsource": {
       "product": "bitbucket",
@@ -1967,66 +1495,6 @@
     "raw_yaml": null
   },
   {
-    "id": "16ab6143-510a-44e2-a615-bdb80b8317fc",
-    "title": "Bitbucket Global SSH Settings Changed",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects Bitbucket global SSH access configuration changes.",
-    "category": "generic",
-    "logsource": {
-      "product": "bitbucket",
-      "service": "audit",
-      "definition": "Requirements: \"Advance\" log level is required to receive these audit events."
-    },
-    "tags": [
-      "attack.lateral-movement",
-      "attack.defense-impairment",
-      "attack.t1685",
-      "attack.t1021.004"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "ff91e3f0-ad15-459f-9a85-1556390c138d",
-    "title": "Bitbucket Secret Scanning Rule Deleted",
-    "status": "test",
-    "level": "low",
-    "description": "Detects when secret scanning rule is deleted for the project or repository.",
-    "category": "generic",
-    "logsource": {
-      "product": "bitbucket",
-      "service": "audit",
-      "definition": "Requirements: \"Basic\" log level is required to receive these audit events."
-    },
-    "tags": [
-      "attack.defense-impairment",
-      "attack.t1685"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "87cc6698-3e07-4ba2-9b43-a85a73e151e2",
-    "title": "Bitbucket User Permissions Export Attempt",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects user permission data export attempt.",
-    "category": "generic",
-    "logsource": {
-      "product": "bitbucket",
-      "service": "audit",
-      "definition": "Requirements: \"Advance\" log level is required to receive these audit events."
-    },
-    "tags": [
-      "attack.reconnaissance",
-      "attack.collection",
-      "attack.discovery",
-      "attack.t1213",
-      "attack.t1082",
-      "attack.t1591.004"
-    ],
-    "raw_yaml": null
-  },
-  {
     "id": "aac6c4f4-87c7-4961-96ac-c3fd3a42c310",
     "title": "Bitbucket Global Permission Changed",
     "status": "test",
@@ -2046,11 +1514,11 @@
     "raw_yaml": null
   },
   {
-    "id": "42ccce6d-7bd3-4930-95cd-e4d83fa94a30",
-    "title": "Bitbucket Project Secret Scanning Allowlist Added",
+    "id": "b91e8d5e-0033-44fe-973f-b730316f23a1",
+    "title": "Bitbucket Secret Scanning Exempt Repository Added",
     "status": "test",
-    "level": "low",
-    "description": "Detects when a secret scanning allowlist rule is added for projects.",
+    "level": "high",
+    "description": "Detects when a repository is exempted from secret scanning feature.",
     "category": "generic",
     "logsource": {
       "product": "bitbucket",
@@ -2064,11 +1532,11 @@
     "raw_yaml": null
   },
   {
-    "id": "195e1b9d-bfc2-4ffa-ab4e-35aef69815f8",
-    "title": "Bitbucket Full Data Export Triggered",
+    "id": "d3f90469-fb05-42ce-b67d-0fded91bbef3",
+    "title": "Bitbucket User Login Failure Via SSH",
     "status": "test",
-    "level": "high",
-    "description": "Detects when full data export is attempted.",
+    "level": "medium",
+    "description": "Detects SSH user login access failures.\nPlease note that this rule can be noisy and is recommended to use with correlation based on \"author.name\" field.\n",
     "category": "generic",
     "logsource": {
       "product": "bitbucket",
@@ -2076,40 +1544,118 @@
       "definition": "Requirements: \"Advance\" log level is required to receive these audit events."
     },
     "tags": [
+      "attack.lateral-movement",
+      "attack.credential-access",
+      "attack.t1021.004",
+      "attack.t1110"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "34e1c7d4-0cd5-419d-9f1b-1dad3f61018d",
+    "title": "Outdated Dependency Or Vulnerability Alert Disabled",
+    "status": "test",
+    "level": "high",
+    "description": "Dependabot performs a scan to detect insecure dependencies, and sends Dependabot alerts.\nThis rule detects when an organization owner disables Dependabot alerts private repositories or Dependabot security updates for all repositories.\n",
+    "category": "generic",
+    "logsource": {
+      "product": "github",
+      "service": "audit",
+      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
+    },
+    "tags": [
+      "attack.initial-access",
+      "attack.t1195.001"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "0c46d4f4-a2bf-4104-9597-8d653fc2bb55",
+    "title": "GitHub Repository Pages Site Changed to Public",
+    "status": "experimental",
+    "level": "low",
+    "description": "Detects when a GitHub Pages site of a repository is made public. This usually is part of a publishing process but could indicate or lead to potential unauthorized exposure of sensitive information or code.\n",
+    "category": "generic",
+    "logsource": {
+      "product": "github",
+      "service": "audit"
+    },
+    "tags": [
+      "attack.collection",
+      "attack.exfiltration",
+      "attack.t1567.001"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "16a71777-0b2e-4db7-9888-9d59cb75200b",
+    "title": "Github Delete Action Invoked",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects delete action in the Github audit logs for codespaces, environment, project and repo.",
+    "category": "generic",
+    "logsource": {
+      "product": "github",
+      "service": "audit",
+      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
+    },
+    "tags": [
+      "attack.impact",
       "attack.collection",
       "attack.t1213.003"
     ],
     "raw_yaml": null
   },
   {
-    "id": "7215374a-de4f-4b33-8ba5-70804c9251d3",
-    "title": "Bitbucket Unauthorized Access To A Resource",
+    "id": "f9405037-bc97-4eb7-baba-167dad399b83",
+    "title": "Github New Secret Created",
     "status": "test",
-    "level": "critical",
-    "description": "Detects unauthorized access attempts to a resource.",
+    "level": "low",
+    "description": "Detects when a user creates action secret for the organization, environment, codespaces or repository.",
     "category": "generic",
     "logsource": {
-      "product": "bitbucket",
+      "product": "github",
       "service": "audit",
-      "definition": "Requirements: \"Advance\" log level is required to receive these audit events."
+      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
     },
     "tags": [
-      "attack.resource-development",
-      "attack.t1586"
+      "attack.persistence",
+      "attack.privilege-escalation",
+      "attack.initial-access",
+      "attack.stealth",
+      "attack.t1078.004"
     ],
     "raw_yaml": null
   },
   {
-    "id": "e16cf0f0-ee88-4901-bd0b-4c8d13d9ee05",
-    "title": "Bitbucket Global Secret Scanning Rule Deleted",
+    "id": "3908d64a-3c06-4091-b503-b3a94424533b",
+    "title": "New Github Organization Member Added",
     "status": "test",
-    "level": "medium",
-    "description": "Detects Bitbucket global secret scanning rule deletion activity.",
+    "level": "informational",
+    "description": "Detects when a new member is added or invited to a github organization.",
     "category": "generic",
     "logsource": {
-      "product": "bitbucket",
+      "product": "github",
       "service": "audit",
-      "definition": "Requirements: \"Basic\" log level is required to receive these audit events."
+      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
+    },
+    "tags": [
+      "attack.persistence",
+      "attack.t1136.003"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "ccd55945-badd-4bae-936b-823a735d37dd",
+    "title": "Github Push Protection Disabled",
+    "status": "test",
+    "level": "high",
+    "description": "Detects if the push protection feature is disabled for an organization, enterprise, repositories or custom pattern rules.",
+    "category": "generic",
+    "logsource": {
+      "product": "github",
+      "service": "audit",
+      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
     },
     "tags": [
       "attack.defense-impairment",
@@ -2118,291 +1664,745 @@
     "raw_yaml": null
   },
   {
-    "id": "84b777bd-c946-4d17-aa2e-c39f5a454325",
-    "title": "RBAC Permission Enumeration Attempt",
+    "id": "2f575940-d85e-4ddc-af13-17dad6f1a0ef",
+    "title": "Github SSH Certificate Configuration Changed",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when changes are made to the SSH certificate configuration of the organization.",
+    "category": "generic",
+    "logsource": {
+      "product": "github",
+      "service": "audit",
+      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
+    },
+    "tags": [
+      "attack.initial-access",
+      "attack.persistence",
+      "attack.privilege-escalation",
+      "attack.stealth",
+      "attack.t1078.004"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "02cf536a-cf21-4876-8842-4159c8aee3cc",
+    "title": "Github Push Protection Bypass Detected",
     "status": "test",
     "level": "low",
-    "description": "Detects identities attempting to enumerate their Kubernetes RBAC permissions.\nIn the early stages of a breach, attackers will aim to list the permissions they have within the compromised environment.\nIn a Kubernetes cluster, this can be achieved by interacting with the API server, and querying the SelfSubjectAccessReview API via e.g. a \"kubectl auth can-i --list\" command.\nThis will enumerate the Role-Based Access Controls (RBAC) rules defining the compromised user's authorization.\n",
+    "description": "Detects when a user bypasses the push protection on a secret detected by secret scanning.",
     "category": "generic",
     "logsource": {
-      "category": "application",
-      "product": "kubernetes",
-      "service": "audit"
+      "product": "github",
+      "service": "audit",
+      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
     },
     "tags": [
-      "attack.t1069.003",
-      "attack.t1087.004",
-      "attack.discovery"
+      "attack.defense-impairment",
+      "attack.t1685"
     ],
     "raw_yaml": null
   },
   {
-    "id": "10b97915-ec8d-455f-a815-9a78926585f6",
-    "title": "Kubernetes Rolebinding Modification",
+    "id": "eaa9ac35-1730-441f-9587-25767bde99d7",
+    "title": "Github Outside Collaborator Detected",
     "status": "test",
     "level": "medium",
-    "description": "Detects when a Kubernetes Rolebinding is created or modified.\n",
+    "description": "Detects when an organization member or an outside collaborator is added to or removed from a project board or has their permission level changed or when an owner removes an outside collaborator from an organization or when two-factor authentication is required in an organization and an outside collaborator does not use 2FA or disables 2FA.\n",
     "category": "generic",
     "logsource": {
-      "product": "kubernetes",
-      "service": "audit"
-    },
-    "tags": [
-      "attack.privilege-escalation"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "eeb3e9e1-b685-44e4-9232-6bb701f925b5",
-    "title": "Kubernetes Secrets Enumeration",
-    "status": "test",
-    "level": "low",
-    "description": "Detects enumeration of Kubernetes secrets.",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "kubernetes",
-      "service": "audit"
-    },
-    "tags": [
-      "attack.t1552.007",
-      "attack.credential-access"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "a1b0ca4e-7835-413e-8471-3ff2b8a66be6",
-    "title": "Potential Remote Command Execution In Pod Container",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects attempts to execute remote commands, within a Pod's container using e.g. the \"kubectl exec\" command.\n",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "kubernetes",
-      "service": "audit"
-    },
-    "tags": [
-      "attack.t1609",
-      "attack.execution"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "eed82177-38f5-4299-8a76-098d50d225ab",
-    "title": "Kubernetes Admission Controller Modification",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when a modification (create, update or replace) action is taken that affects mutating or validating webhook configurations, as they can be used by an adversary to achieve persistence or exfiltrate access credentials.\n",
-    "category": "generic",
-    "logsource": {
-      "product": "kubernetes",
-      "service": "audit"
+      "product": "github",
+      "service": "audit",
+      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
     },
     "tags": [
       "attack.privilege-escalation",
-      "attack.initial-access",
       "attack.persistence",
-      "attack.stealth",
-      "attack.t1078",
-      "attack.credential-access",
-      "attack.t1552",
-      "attack.t1552.007"
+      "attack.collection",
+      "attack.t1098.001",
+      "attack.t1098.003",
+      "attack.t1213.003"
     ],
     "raw_yaml": null
   },
   {
-    "id": "c5cd1b20-36bb-488d-8c05-486be3d0cb97",
-    "title": "Privileged Container Deployed",
+    "id": "8622c92d-c00e-463c-b09d-fd06166f6794",
+    "title": "Github High Risk Configuration Disabled",
     "status": "test",
-    "level": "low",
-    "description": "Detects the creation of a \"privileged\" container, an action which could be indicative of a threat actor mounting a container breakout attacks.\nA privileged container is a container that can access the host with all of the root capabilities of the host machine. This allows it to view, interact and modify processes, network operations, IPC calls, the file system, mount points, SELinux configurations etc. as the root user on the host.\nVarious versions of \"privileged\" containers can be specified, e.g. by setting the securityContext.privileged flag in the resource specification, setting non-standard Linux capabilities, or configuring the hostNetwork/hostPID fields\n",
+    "level": "high",
+    "description": "Detects when a user disables a critical security feature for an organization.",
     "category": "generic",
     "logsource": {
-      "category": "application",
-      "product": "kubernetes",
+      "product": "github",
+      "service": "audit",
+      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
+    },
+    "tags": [
+      "attack.credential-access",
+      "attack.persistence",
+      "attack.defense-impairment",
+      "attack.t1556"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "04ad83ef-1a37-4c10-b57a-81092164bf33",
+    "title": "Github Repository/Organization Transferred",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when a repository or an organization is being transferred to another location.",
+    "category": "generic",
+    "logsource": {
+      "product": "github",
+      "service": "audit",
+      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
+    },
+    "tags": [
+      "attack.persistence",
+      "attack.exfiltration",
+      "attack.t1020",
+      "attack.t1537"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "69b3bd1e-b38a-462f-9a23-fbdbf63d2294",
+    "title": "Github Fork Private Repositories Setting Enabled/Cleared",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when the policy allowing forks of private and internal repositories is changed (enabled or cleared).\n",
+    "category": "generic",
+    "logsource": {
+      "product": "github",
+      "service": "audit",
+      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
+    },
+    "tags": [
+      "attack.persistence",
+      "attack.exfiltration",
+      "attack.t1020",
+      "attack.t1537"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "dca8991c-cb16-4128-abf8-6b11e5cd156f",
+    "title": "GitHub Repository Archive Status Changed",
+    "status": "experimental",
+    "level": "low",
+    "description": "Detects when a GitHub repository is archived or unarchived, which may indicate unauthorized changes to repository status.\n",
+    "category": "generic",
+    "logsource": {
+      "product": "github",
       "service": "audit"
     },
     "tags": [
-      "attack.t1611",
-      "attack.privilege-escalation"
+      "attack.persistence",
+      "attack.impact",
+      "attack.defense-impairment"
     ],
     "raw_yaml": null
   },
   {
-    "id": "597a7e84-187d-458b-9e4f-2f5a0e676711",
-    "title": "Kubernetes Potential Enumeration Activity",
-    "status": "experimental",
-    "level": "medium",
-    "description": "Detects potential Kubernetes enumeration or attack activity via the audit log.\nThis includes the execution of common shells, utilities, or specialized tools like 'Rakkess' (access_matrix) and 'TruffleHog' via Kubernetes API requests.\nAttackers use these methods to perform reconnaissance (enumeration), secret harvesting, or execute code (exec) within a cluster.\n",
+    "id": "3883d9a0-fd0f-440f-afbb-445a2a799bb8",
+    "title": "Github Secret Scanning Feature Disabled",
+    "status": "test",
+    "level": "high",
+    "description": "Detects if the secret scanning feature is disabled for an enterprise or repository.",
     "category": "generic",
     "logsource": {
-      "product": "kubernetes",
-      "service": "audit"
+      "product": "github",
+      "service": "audit",
+      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
+    },
+    "tags": [
+      "attack.defense-impairment",
+      "attack.t1685"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "f8ed0e8f-7438-4b79-85eb-f358ef2fbebd",
+    "title": "Github Self Hosted Runner Changes Detected",
+    "status": "test",
+    "level": "low",
+    "description": "A self-hosted runner is a system that you deploy and manage to execute jobs from GitHub Actions on GitHub.com.\nThis rule detects changes to self-hosted runners configurations in the environment. The self-hosted runner configuration changes once detected,\nit should be validated from GitHub UI because the log entry may not provide full context.\n",
+    "category": "generic",
+    "logsource": {
+      "product": "github",
+      "service": "audit",
+      "definition": "Requirements: The audit log streaming feature must be enabled to be able to receive such logs. You can enable following the documentation here: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-audit-log-streaming"
+    },
+    "tags": [
+      "attack.impact",
+      "attack.discovery",
+      "attack.collection",
+      "attack.persistence",
+      "attack.privilege-escalation",
+      "attack.initial-access",
+      "attack.stealth",
+      "attack.t1526",
+      "attack.t1213.003",
+      "attack.t1078.004"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "d84c0ded-edd7-4123-80ed-348bb3ccc4d5",
+    "title": "Suspicious SQL Query",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects suspicious SQL query keywrods that are often used during recon, exfiltration or destructive activities. Such as dropping tables and selecting wildcard fields",
+    "category": "generic",
+    "logsource": {
+      "category": "database",
+      "definition": "Requirements: Must be able to log the SQL queries"
+    },
+    "tags": [
+      "attack.exfiltration",
+      "attack.initial-access",
+      "attack.privilege-escalation",
+      "attack.persistence",
+      "attack.t1190",
+      "attack.t1505.001"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "fa0c05b6-8ad3-468d-8231-c1cbccb64fba",
+    "title": "Antivirus - Hacktool Signature",
+    "status": "stable",
+    "level": "high",
+    "description": "Detects a highly relevant Antivirus alert that reports a hack tool or other attack tool.\nThis event must not be ignored just because the AV has blocked the malware but investigate, how it came there in the first place.\n",
+    "category": "generic",
+    "logsource": {
+      "category": "antivirus"
     },
     "tags": [
       "attack.execution",
-      "attack.discovery",
-      "attack.t1609",
-      "attack.t1613"
+      "attack.t1204"
     ],
     "raw_yaml": null
   },
   {
-    "id": "3132570d-cab2-4561-9ea6-1743644b2290",
-    "title": "Kubernetes Events Deleted",
+    "id": "4c6ca276-d4d0-4a8c-9e4c-d69832f8671f",
+    "title": "Antivirus - Ransomware Signature",
     "status": "test",
-    "level": "medium",
-    "description": "Detects when events are deleted in Kubernetes.\nAn adversary may delete Kubernetes events in an attempt to evade detection.\n",
+    "level": "critical",
+    "description": "Detects a highly relevant Antivirus alert that reports ransomware.\nThis event must not be ignored just because the AV has blocked the malware but investigate, how it came there in the first place.\n",
     "category": "generic",
     "logsource": {
-      "category": "application",
-      "product": "kubernetes",
-      "service": "audit"
+      "category": "antivirus"
     },
     "tags": [
-      "attack.stealth",
-      "attack.t1070"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "e31bae15-83ed-473e-bf31-faf4f8a17d36",
-    "title": "New Kubernetes Service Account Created",
-    "status": "test",
-    "level": "low",
-    "description": "Detects creation of new Kubernetes service account, which could indicate an attacker's attempt to persist within a cluster.\n",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "kubernetes",
-      "service": "audit"
-    },
-    "tags": [
-      "attack.persistence",
-      "attack.t1136"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "ad9012a6-e518-4432-9890-f3b82b8fc71f",
-    "title": "Potential Sidecar Injection Into Running Deployment",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects attempts to inject a sidecar container into a running deployment.\nA sidecar container is an additional container within a pod, that resides alongside the main container.\nOne way to add containers to running resources like Deployments/DeamonSets/StatefulSets, is via a \"kubectl patch\" operation.\nBy injecting a new container within a legitimate pod, an attacker can run their code and hide their activity, instead of running their own separated pod in the cluster.\n",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "kubernetes",
-      "service": "audit"
-    },
-    "tags": [
-      "attack.t1609",
-      "attack.execution"
-    ],
-    "raw_yaml": null
-  },
-  {
-    "id": "40967487-139b-4811-81d9-c9767a92aa5a",
-    "title": "Deployment Deleted From Kubernetes Cluster",
-    "status": "test",
-    "level": "low",
-    "description": "Detects the removal of a deployment from a Kubernetes cluster.\nThis could indicate disruptive activity aiming to impact business operations.\n",
-    "category": "generic",
-    "logsource": {
-      "category": "application",
-      "product": "kubernetes",
-      "service": "audit"
-    },
-    "tags": [
-      "attack.t1498",
+      "attack.t1486",
       "attack.impact"
     ],
     "raw_yaml": null
   },
   {
-    "id": "0c9b3bda-41a6-4442-9345-356ae86343dc",
-    "title": "Kubernetes CronJob/Job Modification",
-    "status": "test",
-    "level": "medium",
-    "description": "Detects when a Kubernetes CronJob or Job is created or modified.\nA Kubernetes Job creates one or more pods to accomplish a specific task, and a CronJob creates Jobs on a recurring schedule.\nAn adversary can take advantage of this Kubernetes object to schedule Jobs to run containers that execute malicious code within a cluster, allowing them to achieve persistence.\n",
+    "id": "101a1877-2cf4-474d-abfd-7f6ac4788d1a",
+    "title": "Antivirus - APT Malware Signature",
+    "status": "experimental",
+    "level": "critical",
+    "description": "Detects a highly relevant Antivirus alert that reports APT malware.\nThis event must not be ignored just because the AV has blocked the malware but investigate, how it came there in the first place.\n",
     "category": "generic",
     "logsource": {
-      "product": "kubernetes",
-      "service": "audit"
+      "category": "antivirus"
+    },
+    "tags": [
+      "attack.execution",
+      "attack.t1203",
+      "attack.command-and-control",
+      "attack.t1219.002"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "97233998-3838-4581-88c6-f1d19d3993fb",
+    "title": "Antivirus - Remote Access Tools Signature",
+    "status": "experimental",
+    "level": "critical",
+    "description": "Detects a highly relevant Antivirus alert that reports a remote access tool.\nThis event must not be ignored just because the AV has blocked the malware but investigate, how it came there in the first place.\n",
+    "category": "generic",
+    "logsource": {
+      "category": "antivirus"
+    },
+    "tags": [
+      "attack.execution",
+      "attack.t1203",
+      "attack.command-and-control",
+      "attack.t1219.002"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "238527ad-3c2c-4e4f-a1f6-92fd63adb864",
+    "title": "Antivirus - Exploitation Framework Signature",
+    "status": "stable",
+    "level": "critical",
+    "description": "Detects a highly relevant Antivirus alert that reports an exploitation framework.\nThis event must not be ignored just because the AV has blocked the malware but investigate, how it came there in the first place.\n",
+    "category": "generic",
+    "logsource": {
+      "category": "antivirus"
+    },
+    "tags": [
+      "attack.execution",
+      "attack.t1203",
+      "attack.command-and-control",
+      "attack.t1219.002"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "fdf135a2-9241-4f96-a114-bb404948f736",
+    "title": "Antivirus - Web Shell Detection Signature",
+    "status": "test",
+    "level": "high",
+    "description": "Detects a highly relevant Antivirus alert that reports a web shell.\nIt's highly recommended to tune this rule to the specific strings used by your anti virus solution by downloading a big WebShell repository from e.g. github and checking the matches.\nThis event must not be ignored just because the AV has blocked the malware but investigate, how it came there in the first place.\n",
+    "category": "generic",
+    "logsource": {
+      "category": "antivirus"
     },
     "tags": [
       "attack.persistence",
-      "attack.privilege-escalation",
-      "attack.execution"
+      "attack.t1505.003"
     ],
     "raw_yaml": null
   },
   {
-    "id": "402b955c-8fe0-4a8c-b635-622b4ac5f902",
-    "title": "Container With A hostPath Mount Created",
+    "id": "c9a88268-0047-4824-ba6e-4d81ce0b907c",
+    "title": "Antivirus - Relevant File Paths Alerts Signature",
     "status": "test",
-    "level": "low",
-    "description": "Detects creation of a container with a hostPath mount.\nA hostPath volume mounts a directory or a file from the node to the container.\nAttackers who have permissions to create a new pod in the cluster may create one with a writable hostPath volume and chroot to escape to the underlying node.\n",
+    "level": "high",
+    "description": "Detects an Antivirus alert in a highly relevant file path or with a relevant file name.\nThis event must not be ignored just because the AV has blocked the malware but investigate, how it came there in the first place.\n",
     "category": "generic",
     "logsource": {
-      "category": "application",
-      "product": "kubernetes",
-      "service": "audit"
+      "category": "antivirus"
     },
     "tags": [
-      "attack.t1611",
-      "attack.privilege-escalation"
+      "attack.resource-development",
+      "attack.t1588"
     ],
     "raw_yaml": null
   },
   {
-    "id": "0d933542-1f1f-420d-97d4-21b2c3c492d9",
-    "title": "Kubernetes Unauthorized or Unauthenticated Access",
-    "status": "test",
-    "level": "low",
-    "description": "Detects when a request to the Kubernetes API is rejected due to lack of authorization or due to an expired authentication token being used.\nThis may indicate an attacker attempting to leverage credentials they have obtained.\n",
+    "id": "78cc2dd2-7d20-4d32-93ff-057084c38b93",
+    "title": "Antivirus - Password Dumper Signature",
+    "status": "stable",
+    "level": "critical",
+    "description": "Detects a highly relevant Antivirus alert that reports password dumpers and stealers.\nThis event must not be ignored just because the AV has blocked the malware but investigate, how it came there in the first place and check if passwords need to be reset.\n",
     "category": "generic",
     "logsource": {
-      "product": "kubernetes",
-      "service": "audit"
+      "category": "antivirus"
     },
     "tags": [
-      "attack.privilege-escalation"
+      "attack.credential-access",
+      "attack.t1003",
+      "attack.t1558",
+      "attack.t1003.001",
+      "attack.t1003.002"
     ],
     "raw_yaml": null
   },
   {
-    "id": "a80d927d-ac6e-443f-a867-e8d6e3897318",
-    "title": "Creation Of Pod In System Namespace",
+    "id": "6f7e1c10-2dc9-4312-adb6-9574ff09a5c8",
+    "title": "Cisco Duo Successful MFA Authentication Via Bypass Code",
     "status": "test",
     "level": "medium",
-    "description": "Detects deployments of pods within the kube-system namespace, which could be intended to imitate system pods.\nSystem pods, created by controllers such as Deployments or DaemonSets have random suffixes in their names.\nAttackers can use this fact and name their backdoor pods as if they were created by these controllers to avoid detection.\nDeployment of such a backdoor container e.g. named kube-proxy-bv61v, could be attempted in the kube-system namespace alongside the other administrative containers.\n",
+    "description": "Detects when a successful MFA authentication occurs due to the use of a bypass code.\nA bypass code is a temporary passcode created by an administrator for a specific user to access a Duo-protected application. These are generally used as \"backup codes,\" so that enrolled users who are having problems with their mobile devices (e.g., mobile service is disrupted, the device is lost or stolen, etc.) or who temporarily can't use their enrolled devices (on a plane without mobile data services) can still access their Duo-protected systems.\n",
     "category": "generic",
     "logsource": {
-      "category": "application",
-      "product": "kubernetes",
-      "service": "audit"
+      "product": "cisco",
+      "service": "duo"
     },
     "tags": [
-      "attack.stealth",
-      "attack.t1036.005"
+      "attack.credential-access",
+      "attack.initial-access",
+      "attack.stealth"
     ],
     "raw_yaml": null
   },
   {
-    "id": "58d31a75-a4f8-4c40-985b-373d58162ca2",
-    "title": "Kubernetes Secrets Modified or Deleted",
+    "id": "a717c561-d117-437e-b2d9-0118a7035d01",
+    "title": "OneLogin User Account Locked",
     "status": "test",
-    "level": "medium",
-    "description": "Detects when Kubernetes Secrets are Modified or Deleted.\n",
+    "level": "low",
+    "description": "Detects when an user account is locked or suspended.",
     "category": "generic",
     "logsource": {
-      "product": "kubernetes",
-      "service": "audit"
+      "product": "onelogin",
+      "service": "onelogin.events"
+    },
+    "tags": [
+      "attack.impact"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "62fff148-278d-497e-8ecd-ad6083231a35",
+    "title": "OneLogin User Assumed Another User",
+    "status": "test",
+    "level": "low",
+    "description": "Detects when an user assumed another user account.",
+    "category": "generic",
+    "logsource": {
+      "product": "onelogin",
+      "service": "onelogin.events"
+    },
+    "tags": [
+      "attack.impact"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "9058ca8b-f397-4fd1-a9fa-2b7aad4d6309",
+    "title": "Okta Admin Functions Access Through Proxy",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects access to Okta admin functions through proxy.",
+    "category": "generic",
+    "logsource": {
+      "service": "okta",
+      "product": "okta"
     },
     "tags": [
       "attack.credential-access"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "413d4a81-6c98-4479-9863-014785fd579c",
+    "title": "Okta Admin Role Assigned to an User or Group",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when an the Administrator role is assigned to an user or group.",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.privilege-escalation",
+      "attack.persistence",
+      "attack.t1098.003"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "6cc2b61b-d97e-42ef-a9dd-8aa8dc951657",
+    "title": "Okta Unauthorized Access to App",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when unauthorized access to app occurs.",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.impact"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "5c82f0b9-3c6d-477f-a318-0e14a1df73e0",
+    "title": "Okta Security Threat Detected",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when an security threat is detected in Okta.",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.command-and-control"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "14701da0-4b0f-4ee6-9c95-2ffb4e73bb9a",
+    "title": "Okta User Account Locked Out",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when an user account is locked out.",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.impact",
+      "attack.t1531"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "50e068d7-1e6b-4054-87e5-0a592c40c7e0",
+    "title": "Okta MFA Reset or Deactivated",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when an attempt at deactivating  or resetting MFA.",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.persistence",
+      "attack.credential-access",
+      "attack.defense-impairment",
+      "attack.t1556.006"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "19951c21-229d-4ccb-8774-b993c3ff3c5c",
+    "title": "Okta API Token Created",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when a API token is created",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.persistence"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "969c7590-8c19-4797-8c1b-23155de6e7ac",
+    "title": "Okta Identity Provider Created",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when a new identity provider is created for Okta.",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.privilege-escalation",
+      "attack.persistence",
+      "attack.t1098.001"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "07e97cc6-aed1-43ae-9081-b3470d2367f1",
+    "title": "Okta Suspicious Activity Reported by End-user",
+    "status": "test",
+    "level": "high",
+    "description": "Detects when an Okta end-user reports activity by their account as being potentially suspicious.",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.resource-development",
+      "attack.t1586.003"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "8f668cc4-c18e-45fe-ad00-624a981cf88a",
+    "title": "Okta Application Sign-On Policy Modified or Deleted",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when an application Sign-on Policy is modified or deleted.",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.impact"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "9f308120-69ed-4506-abde-ac6da81f4310",
+    "title": "Okta Network Zone Deactivated or Deleted",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when an Network Zone is Deactivated or Deleted.",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.impact"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "1667a172-ed4c-463c-9969-efd92195319a",
+    "title": "Okta Policy Modified or Deleted",
+    "status": "test",
+    "level": "low",
+    "description": "Detects when an Okta policy is modified or deleted.",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.impact"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "91b76b84-8589-47aa-9605-c837583b82a9",
+    "title": "Potential Okta Password in AlternateID Field",
+    "status": "test",
+    "level": "high",
+    "description": "Detects when a user has potentially entered their password into the\nusername field, which will cause the password to be retained in log files.\n",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.credential-access",
+      "attack.t1552"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "7899144b-e416-4c28-b0b5-ab8f9e0a541d",
+    "title": "Okta Application Modified or Deleted",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when an application is modified or deleted.",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.impact"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "a0b38b70-3cb5-484b-a4eb-c4d8e7bcc0a9",
+    "title": "Okta New Admin Console Behaviours",
+    "status": "test",
+    "level": "high",
+    "description": "Detects when Okta identifies new activity in the Admin Console.",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.privilege-escalation",
+      "attack.persistence",
+      "attack.initial-access",
+      "attack.stealth",
+      "attack.t1078.004"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "b6c718dd-8f53-4b9f-98d8-93fdca966969",
+    "title": "New Okta User Created",
+    "status": "test",
+    "level": "informational",
+    "description": "Detects new user account creation",
+    "category": "generic",
+    "logsource": {
+      "service": "okta",
+      "product": "okta"
+    },
+    "tags": [
+      "attack.credential-access"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "ee39a9f7-5a79-4b0a-9815-d36b3cf28d3e",
+    "title": "Okta FastPass Phishing Detection",
+    "status": "test",
+    "level": "high",
+    "description": "Detects when Okta FastPass prevents a known phishing site.",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.initial-access",
+      "attack.t1566"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "139bdd4b-9cd7-49ba-a2f4-744d0a8f5d8c",
+    "title": "Okta Admin Role Assignment Created",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when a new admin role assignment is created. Which could be a sign of privilege escalation or persistence",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.persistence"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "bde30855-5c53-4c18-ae90-1ff79ebc9578",
+    "title": "Okta User Session Start Via An Anonymising Proxy Service",
+    "status": "test",
+    "level": "high",
+    "description": "Detects when an Okta user session starts where the user is behind an anonymising proxy service.",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.defense-impairment",
+      "attack.t1685"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "0c97c1d3-4057-45c9-b148-1de94b631931",
+    "title": "Okta Policy Rule Modified or Deleted",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when an Policy Rule is Modified or Deleted.",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.impact"
+    ],
+    "raw_yaml": null
+  },
+  {
+    "id": "cf1dbc6b-6205-41b4-9b88-a83980d2255b",
+    "title": "Okta API Token Revoked",
+    "status": "test",
+    "level": "medium",
+    "description": "Detects when a API Token is revoked.",
+    "category": "generic",
+    "logsource": {
+      "product": "okta",
+      "service": "okta"
+    },
+    "tags": [
+      "attack.impact"
     ],
     "raw_yaml": null
   }
