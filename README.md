@@ -51,14 +51,38 @@ You can pull the latest sanitized threat feeds directly into your SIEM, firewall
 
 ### Quick Integration Examples
 
-#### 1. In Bash / Linux Firewall:
-```bash
-curl -sSL https://raw.githubusercontent.com/yaasiinaxmed/threatpulse/main/dist/ips/high_confidence_ips.txt | grep -v '^#' | while read ip; do
-  iptables -A INPUT -s "$ip" -j DROP
-done
-```
+#### 1. In Custom SIEM & SOC Telemetry (Elasticsearch, Wazuh, Splunk, Suricata):
 
-#### 2. In Python:
+ThreatPulse feeds are purpose-built to drop directly into custom SIEM detection pipelines, SOC monitoring platforms, and threat-hunting engines:
+
+- **Elasticsearch / Logstash Ingestion:**
+  Ingest the pre-formatted `stix2_bundle.json` or poll the high-confidence feed in Logstash:
+  ```ruby
+  input {
+    http_poller {
+      urls => {
+        threatpulse => "https://raw.githubusercontent.com/yaasiinaxmed/threatpulse/main/dist/ips/high_confidence_ips.txt"
+      }
+      schedule => { cron => "0 1 * * *" }
+      codec => "line"
+    }
+  }
+  filter {
+    if [message] =~ /^#/ { drop {} }
+    mutate { add_field => { "threat.feed" => "threatpulse" "threat.indicator" => "%{message}" } }
+  }
+  output {
+    elasticsearch { hosts => ["http://localhost:9200"] index => "threat-intel-threatpulse" }
+  }
+  ```
+
+- **Wazuh / Suricata / Snort IP Sets:**
+  Use `cidr_drop.txt` and `high_confidence_ips.txt` as a periodic external dynamic list (CDB lists in Wazuh or IP Rep lists in Suricata) to trigger high-severity alerts on inbound SSH or web brute-force attempts.
+
+- **Splunk Threat Intelligence Lookup:**
+  Import `high_confidence_ips.txt` directly as an automated daily KV Store lookup table to cross-reference with your firewall and proxy access logs.
+
+#### 2. In Python (SOAR Automation / Security Scripts):
 ```python
 import httpx
 
@@ -66,8 +90,18 @@ FEED_URL = "https://raw.githubusercontent.com/yaasiinaxmed/threatpulse/main/dist
 resp = httpx.get(FEED_URL)
 blocked_ips = set(line.strip() for line in resp.text.splitlines() if line and not line.startswith("#"))
 
-if "185.220.101.5" in blocked_ips:
-    print("🚨 Block connection!")
+# Real-time incident response / IP lookup in your custom SOC backend
+incoming_ip = "185.220.101.5"
+if incoming_ip in blocked_ips:
+    print(f"🚨 ALERT: Inbound connection from known malicious IP {incoming_ip}!")
+    # Trigger SOAR isolation / automated firewall ban
+```
+
+#### 3. In Linux Edge Firewall (iptables / UFW):
+```bash
+curl -sSL https://raw.githubusercontent.com/yaasiinaxmed/threatpulse/main/dist/ips/high_confidence_ips.txt | grep -v '^#' | while read ip; do
+  iptables -A INPUT -s "$ip" -j DROP
+done
 ```
 
 ---
