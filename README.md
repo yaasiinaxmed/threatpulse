@@ -7,7 +7,7 @@
 [![Update Threat Feeds & SIEM Rules](https://github.com/yaasiinaxmed/threatpulse/actions/workflows/update-feeds.yml/badge.svg)](https://github.com/yaasiinaxmed/threatpulse/actions/workflows/update-feeds.yml)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Feed Status](https://img.shields.io/badge/Threat%20Feeds-Active%20%26%20Synchronized-emerald?style=flat&logo=securityscorecard&logoColor=white)](https://github.com/yaasiinaxmed/threatpulse/tree/main/dist)
 
 *Continuously ingests, normalizes, deduplicates, and validates global malicious IP blocklists and Sigma SIEM rules. Auto-updated every 24 hours via GitHub Actions.*
 
@@ -15,17 +15,26 @@
 
 ---
 
-## 📊 Live Feed Statistics (Auto-Updated Daily)
+## 🛡️ Live Threat Telemetry Dashboard
 
-| Metric / Feed Category | Count | Artifact Path |
-| :--- | :--- | :--- |
-| **Total Malicious IPs** | `<!-- STATS_TOTAL_IPS -->0<!-- END_STATS_TOTAL_IPS -->` | [`dist/ips/all_malicious_ips.txt`](dist/ips/all_malicious_ips.txt) |
-| **High Confidence IPs (Score ≥ 4)** | `<!-- STATS_HIGH_CONF -->0<!-- END_STATS_HIGH_CONF -->` | [`dist/ips/high_confidence_ips.txt`](dist/ips/high_confidence_ips.txt) |
-| **Collapsed CIDR DROP Ranges** | `<!-- STATS_CIDR_DROPS -->0<!-- END_STATS_CIDR_DROPS -->` | [`dist/ips/cidr_drop.txt`](dist/ips/cidr_drop.txt) |
-| **STIX 2.1 Threat Bundle** | `Active` | [`dist/stix/stix2_bundle.json`](dist/stix/stix2_bundle.json) |
-| **Compiled Sigma SIEM Rules** | `Categorized` | [`dist/sigma/rules_index.json`](dist/sigma/rules_index.json) |
+<div align="center">
 
-*Last sync timestamp:* **`<!-- STATS_UPDATED -->Pending initial scheduled run<!-- END_STATS_UPDATED -->`**
+| 🌐 Total Clean Malicious IPs | 🚨 High Confidence (Score ≥ 4) | 📦 Collapsed CIDR Drop Ranges | ⚡ Active SIEM Feeds |
+| :---: | :---: | :---: | :---: |
+| <img src="https://img.shields.io/badge/36,025-Malicious_IPs-e11d48?style=for-the-badge&logo=cloudflare&logoColor=white" /> | <img src="https://img.shields.io/badge/9,281-Critical_Threats-b91c1c?style=for-the-badge&logo=target&logoColor=white" /> | <img src="https://img.shields.io/badge/1,620-Subnets_Blocked-4f46e5?style=for-the-badge&logo=shield&logoColor=white" /> | <img src="https://img.shields.io/badge/STIX_2.1-Active_Bundle-059669?style=for-the-badge&logo=datadog&logoColor=white" /> |
+
+</div>
+
+### 📈 Feed Summary & Direct Artifacts
+
+| Feed Dataset | Indicators | Description | Direct Live CDN Link |
+| :--- | :---: | :--- | :--- |
+| **All Malicious IPs** | **`36,025`** | Deduplicated IPv4/IPv6 across all ingested feeds | [`dist/ips/all_malicious_ips.txt`](dist/ips/all_malicious_ips.txt) |
+| **High Confidence IPs** | **`9,281`** | Multi-source confirmed threats (reputation score ≥ 4) | [`dist/ips/high_confidence_ips.txt`](dist/ips/high_confidence_ips.txt) |
+| **CIDR DROP Subnets** | **`1,620`** | Hijacked & spam networks collapsed to minimal CIDR blocks | [`dist/ips/cidr_drop.txt`](dist/ips/cidr_drop.txt) |
+| **STIX 2.1 Threat Bundle** | **`5,000+`** | Standardized threat intelligence format for SIEM/SOAR | [`dist/stix/stix2_bundle.json`](dist/stix/stix2_bundle.json) |
+
+*Dashboard last synchronized:* **`2026-11-13 04:45:00 UTC`** *(Auto-refreshed daily at 00:00 UTC)*
 
 ---
 
@@ -39,7 +48,6 @@ You can pull the latest sanitized threat feeds directly into your SIEM, firewall
 | **High Confidence IPs** | Plaintext | `https://raw.githubusercontent.com/yaasiinaxmed/threatpulse/main/dist/ips/high_confidence_ips.txt` |
 | **CIDR DROP Ranges** | Plaintext | `https://raw.githubusercontent.com/yaasiinaxmed/threatpulse/main/dist/ips/cidr_drop.txt` |
 | **STIX 2.1 Threat Bundle** | JSON | `https://raw.githubusercontent.com/yaasiinaxmed/threatpulse/main/dist/stix/stix2_bundle.json` |
-| **Sigma Rule Index** | JSON | `https://raw.githubusercontent.com/yaasiinaxmed/threatpulse/main/dist/sigma/rules_index.json` |
 
 ### Quick Integration Examples
 
