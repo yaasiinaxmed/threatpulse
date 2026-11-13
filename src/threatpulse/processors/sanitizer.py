@@ -7,12 +7,20 @@ from typing import Iterable, List, Set, Tuple, Union
 from threatpulse.models.indicators import IPIndicator
 
 
+def collapse_mixed_networks(
+    networks: Iterable[Union[ipaddress.IPv4Network, ipaddress.IPv6Network]]
+) -> List[Union[ipaddress.IPv4Network, ipaddress.IPv6Network]]:
+    """Helper to collapse IPv4 and IPv6 networks separately to prevent TypeError in Python ipaddress."""
+    v4 = [n for n in networks if n.version == 4]
+    v6 = [n for n in networks if n.version == 6]
+    return list(ipaddress.collapse_addresses(v4)) + list(ipaddress.collapse_addresses(v6))
+
+
 def load_allowlist(allowlist_path: Union[str, Path, None] = None) -> List[Union[ipaddress.IPv4Network, ipaddress.IPv6Network]]:
     """Loads and parses safe CIDR blocks from an allowlist file."""
     networks: List[Union[ipaddress.IPv4Network, ipaddress.IPv6Network]] = []
 
     if allowlist_path is None:
-        # Default fallback to repository allowlist.txt
         candidate = Path(__file__).resolve().parents[3] / "allowlist.txt"
         if candidate.exists():
             allowlist_path = candidate
@@ -34,7 +42,7 @@ def load_allowlist(allowlist_path: Union[str, Path, None] = None) -> List[Union[
             except ValueError:
                 continue
 
-    return list(ipaddress.collapse_addresses(networks))
+    return collapse_mixed_networks(networks)
 
 
 class IndicatorSanitizer:
@@ -62,7 +70,7 @@ class IndicatorSanitizer:
             target_net = net_or_ip
 
         for allowed in self.allowed_networks:
-            if target_net.subnet_of(allowed):
+            if target_net.version == allowed.version and target_net.subnet_of(allowed):
                 return True
         return False
 
@@ -95,7 +103,6 @@ class IndicatorSanitizer:
                     if self.is_bogon_or_private(ip) or self.is_allowlisted(ip):
                         continue
                     ip_str = str(ip)
-                    # Aggregate highest score if duplicate across feeds
                     if ip_str in single_ip_map:
                         existing = single_ip_map[ip_str]
                         existing.score = max(existing.score, ind.score)
@@ -105,8 +112,8 @@ class IndicatorSanitizer:
                 except ValueError:
                     continue
 
-        # Collapse overlapping CIDRs
-        collapsed_cidrs = list(ipaddress.collapse_addresses(cidr_networks))
+        # Collapse overlapping CIDRs (separating v4 and v6)
+        collapsed_cidrs = collapse_mixed_networks(cidr_networks)
         clean_cidrs: List[IPIndicator] = []
         for net in collapsed_cidrs:
             net_str = str(net)
@@ -119,7 +126,7 @@ class IndicatorSanitizer:
         filtered_single_ips: List[IPIndicator] = []
         for ip_str, ind in single_ip_map.items():
             ip_obj = ipaddress.ip_address(ip_str)
-            covered_by_cidr = any(ip_obj in net for net in collapsed_cidrs)
+            covered_by_cidr = any(ip_obj.version == net.version and ip_obj in net for net in collapsed_cidrs)
             if not covered_by_cidr:
                 filtered_single_ips.append(ind)
 
