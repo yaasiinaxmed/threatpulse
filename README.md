@@ -21,7 +21,7 @@
 
 | 🌐 Total Clean Malicious IPs | 🚨 High Confidence (Score ≥ 4) | 📦 Collapsed CIDR Drop Ranges | ⚡ Active SIEM Feeds |
 | :---: | :---: | :---: | :---: |
-| <img src="https://img.shields.io/badge/36,025-Malicious_IPs-e11d48?style=for-the-badge&logo=cloudflare&logoColor=white" /> | <img src="https://img.shields.io/badge/9,281-Critical_Threats-b91c1c?style=for-the-badge&logo=target&logoColor=white" /> | <img src="https://img.shields.io/badge/1,620-Subnets_Blocked-4f46e5?style=for-the-badge&logo=shield&logoColor=white" /> | <img src="https://img.shields.io/badge/STIX_2.1-Active_Bundle-059669?style=for-the-badge&logo=datadog&logoColor=white" /> |
+| <img src="https://img.shields.io/badge/45,251-Malicious_IPs-e11d48?style=for-the-badge&logo=cloudflare&logoColor=white" /> | <img src="https://img.shields.io/badge/21,419-Critical_Threats-b91c1c?style=for-the-badge&logo=target&logoColor=white" /> | <img src="https://img.shields.io/badge/1,620-Subnets_Blocked-4f46e5?style=for-the-badge&logo=shield&logoColor=white" /> | <img src="https://img.shields.io/badge/STIX_2.1-Active_Bundle-059669?style=for-the-badge&logo=datadog&logoColor=white" /> |
 
 </div>
 
@@ -29,12 +29,12 @@
 
 | Feed Dataset | Indicators | Description | Direct Live CDN Link |
 | :--- | :---: | :--- | :--- |
-| **All Malicious IPs** | **`36,025`** | Deduplicated IPv4/IPv6 across all ingested feeds | [`dist/ips/all_malicious_ips.txt`](dist/ips/all_malicious_ips.txt) |
-| **High Confidence IPs** | **`9,281`** | Multi-source confirmed threats (reputation score ≥ 4) | [`dist/ips/high_confidence_ips.txt`](dist/ips/high_confidence_ips.txt) |
+| **All Malicious IPs** | **`45,251`** | Deduplicated IPv4/IPv6 across all ingested feeds | [`dist/ips/all_malicious_ips.txt`](dist/ips/all_malicious_ips.txt) |
+| **High Confidence IPs** | **`21,419`** | Multi-source confirmed threats (reputation score ≥ 4) | [`dist/ips/high_confidence_ips.txt`](dist/ips/high_confidence_ips.txt) |
 | **CIDR DROP Subnets** | **`1,620`** | Hijacked & spam networks collapsed to minimal CIDR blocks | [`dist/ips/cidr_drop.txt`](dist/ips/cidr_drop.txt) |
 | **STIX 2.1 Threat Bundle** | **`5,000+`** | Standardized threat intelligence format for SIEM/SOAR | [`dist/stix/stix2_bundle.json`](dist/stix/stix2_bundle.json) |
 
-*Dashboard last synchronized:* **`2026-11-13 04:45:00 UTC`** *(Auto-refreshed daily at 00:00 UTC)*
+*Dashboard last synchronized:* **`2026-11-13 05:00:00 UTC`** *(Auto-refreshed daily at 00:00 UTC)*
 
 ---
 
@@ -76,11 +76,12 @@ if "185.220.101.5" in blocked_ips:
 
 ThreatPulse continuously aggregates, validates, and cross-references data from the following verified sources:
 
-1. **[stamparm/ipsum](https://github.com/stamparm/ipsum)**: Aggregated multi-feed threat score list ([sekuripy mirror](https://www.sekuripy.hr/labs/ipsum/)).
-2. **[The Spamhaus Project](https://www.spamhaus.org/drop/)**: Don't Route Or Peer (DROP & EDROP) lists for hijacked / malicious CIDR blocks.
-3. **[Blocklist.de](https://www.blocklist.de/)**: Real-time fail2ban and SSH brute-force attack telemetry.
-4. **[CrowdSec](https://www.crowdsec.net/)**: CrowdSec Central API (CAPI) & [FireHOL community netsets](https://github.com/firehol/blocklist-ipsets).
-5. **[SigmaHQ Detection Rules](https://github.com/SigmaHQ/sigma)**: Open standard for generic detection signatures across log engines.
+1. **[CINS Army (CI-BadGuys)](https://cinsscore.com/)**: Sentinel IPS curated active malicious IP attack list ([ci-badguys.txt](https://cinsscore.com/list/ci-badguys.txt)).
+2. **[stamparm/ipsum](https://github.com/stamparm/ipsum)**: Aggregated multi-feed threat score list ([sekuripy mirror](https://www.sekuripy.hr/labs/ipsum/)).
+3. **[The Spamhaus Project](https://www.spamhaus.org/drop/)**: Don't Route Or Peer (DROP & EDROP) lists for hijacked / malicious CIDR blocks.
+4. **[Blocklist.de](https://www.blocklist.de/)**: Real-time fail2ban and SSH brute-force attack telemetry.
+5. **[CrowdSec](https://www.crowdsec.net/)**: CrowdSec Central API (CAPI) & [FireHOL community netsets](https://github.com/firehol/blocklist-ipsets).
+6. **[SigmaHQ Detection Rules](https://github.com/SigmaHQ/sigma)**: Open standard for generic detection signatures across log engines.
 
 ---
 

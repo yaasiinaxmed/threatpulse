@@ -13,6 +13,7 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.table import Table
 import typer
 from threatpulse.collectors.blocklist_de import fetch_blocklist_de_feed
+from threatpulse.collectors.cins_army import fetch_cins_army_feed
 from threatpulse.collectors.crowdsec import fetch_crowdsec_feed
 from threatpulse.collectors.ipsum import fetch_ipsum_feed
 from threatpulse.collectors.sigma import clone_or_update_sigma_repo, parse_sigma_directory
@@ -39,12 +40,13 @@ async def _run_pipeline(min_score: int, dist_dir: Path, skip_sigma: bool) -> dic
         spamhaus_task = fetch_spamhaus_feed(client)
         blocklist_task = fetch_blocklist_de_feed(client)
         crowdsec_task = fetch_crowdsec_feed(client)
+        cins_army_task = fetch_cins_army_feed(client)
 
         results = await asyncio.gather(
-            ipsum_task, spamhaus_task, blocklist_task, crowdsec_task, return_exceptions=True
+            ipsum_task, spamhaus_task, blocklist_task, crowdsec_task, cins_army_task, return_exceptions=True
         )
 
-        feed_names = ["ipsum", "spamhaus", "blocklist_de", "crowdsec"]
+        feed_names = ["ipsum", "spamhaus", "blocklist_de", "crowdsec", "cins_army"]
         for name, res in zip(feed_names, results):
             if isinstance(res, list):
                 raw_indicators.extend(res)
