@@ -4,7 +4,7 @@
 
 **Automated Threat Intelligence & SIEM Detection Rule Aggregator**
 
-[![Update Threat Feeds & SIEM Rules](https://github.com/yaasiinaxmed/threatpulse/actions/workflows/update-feeds.yml/badge.svg)](https://github.com/yaasiinaxmed/threatpulse/actions/workflows/update-feeds.yml)
+[![Update Threat Feeds & SIEM Rules](https://github.com/yaasiinaxmed/threatpulse/actions/workflows/update-feeds.yml/badge.svg?branch=main)](https://github.com/yaasiinaxmed/threatpulse/actions/workflows/update-feeds.yml)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Feed Status](https://img.shields.io/badge/Threat%20Feeds-Active%20%26%20Synchronized-emerald?style=flat&logo=securityscorecard&logoColor=white)](https://github.com/yaasiinaxmed/threatpulse/tree/main/dist)
